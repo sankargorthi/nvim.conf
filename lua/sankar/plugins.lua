@@ -19,6 +19,9 @@ return {
 	{ 'tpope/vim-fugitive' },
 	{ 'mbbill/undotree' },
 
+	-- blamer
+	{ 'APZelos/blamer.nvim' },
+
 	-- UI Language plugins
 	{ 'norcalli/nvim-colorizer.lua' }
 
