@@ -28,6 +28,7 @@ local servers = {
 			}
 		},
 	},
+	vimls = {},
 }
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
