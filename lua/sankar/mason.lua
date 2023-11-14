@@ -9,6 +9,9 @@ local servers = {
 	-- gopls = {},
 	-- pyright = {},
 	-- rust_analyzer = {},
+	jsonls = {},
+	jdtls = {},
+	marksman = {},
 	tsserver = {
 		root_dir = util.root_pattern('.git')(fname)
 	},
