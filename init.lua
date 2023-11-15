@@ -21,3 +21,7 @@ vim.o.clipboard = 'unnamedplus'
 -- disable providers to make checkhealth happy 🙂
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
+
+-- Case-insensitive searching UNLESS \C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
