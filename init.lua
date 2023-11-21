@@ -3,7 +3,7 @@ require("sankar")
 -- customizations
 
 -- show line numbers
-vim.wo.number = true
+vim.o.number = true
 
 -- make editor prettier
 vim.o.scrolloff = 20
