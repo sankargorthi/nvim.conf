@@ -1,7 +1,7 @@
 return {
 	{
 		"oxfist/night-owl.nvim",
-		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		lazy = false,    -- make sure we load this during startup if it is your main colorscheme
 		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
 			-- load the colorscheme here
@@ -13,7 +13,13 @@ return {
 		-- or                              , branch = '0.1.x',
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
-	{ 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+	{
+		'nvim-treesitter/nvim-treesitter',
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter-textobjects',
+		},
+		build = ':TSUpdate'
+	},
 
 	-- Git plugins
 	{ 'tpope/vim-fugitive' },
@@ -36,8 +42,8 @@ return {
 				section_separators = '',
 			},
 			sections = {
-				lualine_a = {'mode'},
-				lualine_b = {'diff', 'diagnostics'},
+				lualine_a = { 'mode' },
+				lualine_b = { 'diff', 'diagnostics' },
 				lualine_c = {
 					{
 						'filename',
@@ -45,12 +51,12 @@ return {
 						shorting_target = 40,
 					}
 				},
-				lualine_x = {'encoding', 'fileformat', 'filetype'},
-				lualine_y = {'progress'},
-				lualine_z = {'location'}
+				lualine_x = { 'encoding', 'fileformat', 'filetype' },
+				lualine_y = { 'progress' },
+				lualine_z = { 'location' }
 			},
 			inactive_sections = {
-				lualine_a = {'mode'},
+				lualine_a = { 'mode' },
 				lualine_b = {},
 				lualine_c = {
 					{
@@ -59,7 +65,7 @@ return {
 						shorting_target = 60
 					}
 				},
-				lualine_x = {'location'},
+				lualine_x = { 'location' },
 				lualine_y = {},
 				lualine_z = {}
 			},
@@ -79,7 +85,7 @@ return {
 	},
 
 	-- "gc" to comment visual regions/lines
-	{ 'numToStr/Comment.nvim', opts = {} },
+	{ 'numToStr/Comment.nvim',      opts = {} },
 
 	-- UI Language plugins
 	{ 'norcalli/nvim-colorizer.lua' },
@@ -157,4 +163,3 @@ return {
 	},
 
 }
-
