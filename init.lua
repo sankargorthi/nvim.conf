@@ -1,3 +1,5 @@
+vim.o.termguicolors = true
+
 require("sankar")
 
 -- customizations
