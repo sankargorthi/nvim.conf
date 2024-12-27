@@ -12,8 +12,11 @@ local servers = {
 	jsonls = {},
   --	jdtls = {},
 	marksman = {},
-	tsserver = {
+	ts_ls = {
 		root_dir = util.root_pattern('.git')(fname)
+--		preferences = {
+--			disableSuggestions = true
+--		}
 	},
 	html = { filetypes = { 'html', 'twig', 'hbs'} },
 	cssls = {},

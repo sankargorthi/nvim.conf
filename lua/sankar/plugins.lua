@@ -1,13 +1,18 @@
 return {
-	{
-		"oxfist/night-owl.nvim",
-		lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
-		config = function()
-			-- load the colorscheme here
-			vim.cmd.colorscheme("night-owl")
-		end,
-	},
+ 	{
+ 		"oxfist/night-owl.nvim",
+ 		lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+ 		priority = 1000, -- make sure to load this before all the other start plugins
+ 		config = function()
+ 			-- load the colorscheme here
+ 			vim.cmd.colorscheme("night-owl")
+ 		end,
+ 	},
+-- 	{
+--     "catppuccin/nvim",
+-- 		lazy = false,
+-- 		priority = 1000
+-- 	},
 	{
 		'nvim-telescope/telescope.nvim', tag = '0.1.4',
 		-- or                              , branch = '0.1.x',
@@ -106,6 +111,24 @@ return {
 			'folke/neodev.nvim',
 		},
 	},
+
+	-- {
+	-- 	"christoomey/vim-tmux-navigator",
+	-- 	cmd = {
+	-- 		"TmuxNavigateLeft",
+	-- 		"TmuxNavigateDown",
+	-- 		"TmuxNavigateUp",
+	-- 		"TmuxNavigateRight",
+	-- 		"TmuxNavigatePrevious",
+	-- 	},
+	-- 	keys = {
+	-- 		{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+	-- 		{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+	-- 		{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+	-- 		{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+	-- 		{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+	-- 	},
+	-- },
 
 	{
 		-- Adds git related signs to the gutter, as well as utilities for managing changes
