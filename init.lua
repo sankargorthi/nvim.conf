@@ -6,6 +6,7 @@ require("sankar")
 
 -- show line numbers
 vim.o.number = true
+vim.o.relativenumber = true
 
 -- make editor prettier
 vim.o.scrolloff = 20

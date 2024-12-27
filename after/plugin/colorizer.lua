@@ -1,6 +1,6 @@
 require 'colorizer'.setup({
- 	css = {
-  	hsl_fn = true
+	css = {
+		hsl_fn = true
 	};
 	scss = {
 		hsl_fn = true
