@@ -16,6 +16,11 @@ local opts = {
 				buffer = buffnr,
 				callback = function ()
 					vim.lsp.buf.format({ bufnr = buffnr })
+					local params = {
+						command = '_typescript.organizeImports',
+						arguments = {vim.api.nvim_buf_get_name(0)},
+					}
+					vim.lsp.buf.execute_command(params)
 				end
 			})
 		end

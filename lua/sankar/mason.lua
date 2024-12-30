@@ -18,7 +18,7 @@ local servers = {
 			preferences = {
 				disableSuggestions = true
 			}
-		}
+		},
 	},
 	html = { filetypes = { 'html', 'twig', 'hbs'} },
 	cssls = {},
@@ -73,9 +73,18 @@ local on_attach = function(_, bufnr)
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+  -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+  --   vim.lsp.buf.format()
+  -- end, { desc = 'Format current buffer with LSP' })
+	-- Create a command `:OrganizeImports` local to the LSP buffer
+	vim.api.nvim_buf_create_user_command(bufnr, 'OrganizeImports', function(_)
+		local params = {
+			command = '_typescript.organizeImports',
+			arguments = {vim.api.nvim_buf_get_name(0)},
+		}
+		vim.lsp.buf.execute_command(params)
+	end, { desc = 'Organize Imports' })
+
 end
 
 
