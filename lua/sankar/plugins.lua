@@ -8,13 +8,22 @@ return {
 	-- 		vim.cmd.colorscheme("night-owl")
 	-- 	end,
 	-- },
+	-- {
+	-- 	"catppuccin/nvim",
+	-- 	name = 'catppuccin',
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function ()
+	-- 		vim.cmd.colorscheme 'catppuccin-latte'
+	-- 	end
+	-- },
 	{
-		"catppuccin/nvim",
-		name = 'catppuccin',
+		"folke/tokyonight.nvim",
+		name = 'tokyonight',
 		lazy = false,
 		priority = 1000,
 		config = function ()
-			vim.cmd.colorscheme 'catppuccin-latte'
+			vim.cmd.colorscheme 'tokyonight-day'
 		end
 	},
 	{
@@ -47,7 +56,7 @@ return {
 		opts = {
 			options = {
 				icons_enabled = true,
-				theme = 'catppuccin',
+				theme = 'tokyonight',
 				component_separators = '|',
 				section_separators = '',
 			},
