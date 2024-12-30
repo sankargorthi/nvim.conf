@@ -94,6 +94,24 @@ return {
 
 	-- UI Language plugins
 	{ 'norcalli/nvim-colorizer.lua' },
+	{
+		'nvimtools/none-ls.nvim',
+		event = 'VeryLazy',
+		opts = function ()
+			return require 'sankar.configs.null-ls'
+		end
+	},
+	{
+		'williamboman/mason.nvim',
+		opts = {
+			ensure_installed = {
+				'prettierd',
+				'elsint-lsp',
+				'lua-language-server',
+				'typescript-language-server',
+			}
+		}
+	},
 
 	{
 		-- LSP Configuration & Plugins
