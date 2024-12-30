@@ -1,20 +1,21 @@
 return {
- 	{
- 		"oxfist/night-owl.nvim",
- 		lazy = false,    -- make sure we load this during startup if it is your main colorscheme
- 		priority = 1000, -- make sure to load this before all the other start plugins
- 		config = function()
- 			-- load the colorscheme here
- 			vim.cmd.colorscheme("night-owl")
- 		end,
- 	},
--- 	{
---     "catppuccin/nvim",
--- 		lazy = false,
--- 		priority = 1000
--- 	},
 	{
-		'nvim-telescope/telescope.nvim', tag = '0.1.4',
+		"oxfist/night-owl.nvim",
+		lazy = false,   -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
+		config = function()
+			-- load the colorscheme here
+			vim.cmd.colorscheme("night-owl")
+		end,
+	},
+	-- 	{
+	--     "catppuccin/nvim",
+	-- 		lazy = false,
+	-- 		priority = 1000
+	-- 	},
+	{
+		'nvim-telescope/telescope.nvim',
+		tag = '0.1.4',
 		-- or                              , branch = '0.1.x',
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
@@ -97,7 +98,7 @@ return {
 	{
 		'nvimtools/none-ls.nvim',
 		event = 'VeryLazy',
-		opts = function ()
+		opts = function()
 			return require 'sankar.configs.null-ls'
 		end
 	},
