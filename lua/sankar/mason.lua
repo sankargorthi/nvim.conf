@@ -13,10 +13,12 @@ local servers = {
   --	jdtls = {},
 	marksman = {},
 	ts_ls = {
-		root_dir = util.root_pattern('.git')(fname)
---		preferences = {
---			disableSuggestions = true
---		}
+		root_dir = util.root_pattern('.git')(fname),
+		init_options = {
+			preferences = {
+				disableSuggestions = true
+			}
+		}
 	},
 	html = { filetypes = { 'html', 'twig', 'hbs'} },
 	cssls = {},
@@ -90,6 +92,7 @@ mason_lspconfig.setup_handlers {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			settings = servers[server_name],
+			init_options = (servers[server_name] or {}).init_options,
 			filetypes = (servers[server_name] or {}).filetypes,
 		}
 	end,
