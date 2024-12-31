@@ -218,12 +218,23 @@ return {
 	},
 	{
 		'MeanderingProgrammer/render-markdown.nvim',
+		lazy = "VeryLazy",
+		ft = { "markdown" },
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
 		---@module 'render-markdown',
-		opts = {},
+	},
+	{
+		"iamcco/markdown-preview.nvim",
+		lazy = "VeryLazy",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
 	},
 	{
 		"nvim-telescope/telescope-file-browser.nvim",
+		lazy = "VeryLazy",
 		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
 	}
 }
