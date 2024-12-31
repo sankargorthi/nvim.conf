@@ -23,7 +23,7 @@ return {
 		name = 'tokyonight',
 		lazy = false,
 		priority = 1000,
-		config = function ()
+		config = function()
 			vim.cmd.colorscheme 'tokyonight-day'
 		end
 	},
@@ -217,5 +217,13 @@ return {
 			'rafamadriz/friendly-snippets',
 		},
 	},
+
+	{
+		'MeanderingProgrammer/render-markdown.nvim',
+		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+		---@module 'render-markdown',
+		---@type render.md.UserConfig,
+		opts = {},
+	}
 
 }
