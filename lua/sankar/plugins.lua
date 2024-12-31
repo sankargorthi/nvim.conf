@@ -201,7 +201,6 @@ return {
 			end,
 		},
 	},
-
 	{
 		-- Autocompletion
 		'hrsh7th/nvim-cmp',
@@ -217,13 +216,14 @@ return {
 			'rafamadriz/friendly-snippets',
 		},
 	},
-
 	{
 		'MeanderingProgrammer/render-markdown.nvim',
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
 		---@module 'render-markdown',
-		---@type render.md.UserConfig,
 		opts = {},
+	},
+	{
+		"nvim-telescope/telescope-file-browser.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
 	}
-
 }
