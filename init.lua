@@ -28,3 +28,6 @@ vim.g.loaded_perl_provider = 0
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
+
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
