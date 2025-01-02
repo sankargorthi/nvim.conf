@@ -1,8 +1,9 @@
 require('telescope').load_extension 'file_browser'
 
 require('telescope').setup({
- defaults = {
+	defaults = {
 		layout_strategy = 'vertical',
+		-- layout_strategy = 'horizontal',
 		layout_config = { height = 0.95, width = 0.99 },
 		path_display = {
 			smart = true,
