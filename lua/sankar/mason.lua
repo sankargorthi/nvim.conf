@@ -55,11 +55,20 @@ local on_attach = function(_, bufnr)
 		vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
 	end
 
+	local function getProductionReferences(...)
+		require('telescope.builtin').lsp_references({
+			...,
+			cwd = vim.fn.expand('%:p:h'),
+			file_ignore_patterns = { "__tests__", "__test__", "*.test.js", "*.stories.jsx", "__stories__" }
+		})
+	end
+
 	nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 	nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
 	nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-	nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+	nmap('gr', getProductionReferences, '[G]oto [R]eferences in production code')
+	nmap('gra', require('telescope.builtin').lsp_references, '[G]oto [R]eferences [A]ll scopes')
 	nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 	nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 	nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')

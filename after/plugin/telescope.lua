@@ -1,5 +1,16 @@
 require('telescope').load_extension 'file_browser'
 
+require('telescope').setup({
+ defaults = {
+		layout_strategy = 'vertical',
+		layout_config = { height = 0.95, width = 0.99 },
+		path_display = {
+			smart = true,
+			absolute = false
+		}
+	}
+})
+
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>po', builtin.find_files, {})
 vim.keymap.set('n', '<leader>pf', ':Telescope file_browser<CR>', {})
