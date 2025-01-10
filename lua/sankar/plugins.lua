@@ -9,24 +9,24 @@ return {
 	-- 		vim.cmd.colorscheme("night-owl")
 	-- 	end,
 	-- },
-	-- {
-	-- 	"catppuccin/nvim",
-	-- 	name = 'catppuccin',
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function ()
-	-- 		vim.cmd.colorscheme 'catppuccin-latte'
-	-- 	end
-	-- },
 	{
-		"folke/tokyonight.nvim",
-		name = 'tokyonight',
+		"catppuccin/nvim",
+		name = 'catppuccin',
 		lazy = false,
 		priority = 1000,
-		config = function()
-			vim.cmd.colorscheme 'tokyonight-day'
+		config = function ()
+			vim.cmd.colorscheme 'catppuccin-frappe'
 		end
 	},
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	name = 'tokyonight',
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		vim.cmd.colorscheme 'tokyonight-day'
+	-- 	end
+	-- },
 	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.4',
@@ -57,7 +57,8 @@ return {
 		opts = {
 			options = {
 				icons_enabled = true,
-				theme = 'tokyonight',
+				-- theme = 'tokyonight',
+				theme = 'catppuccin',
 				component_separators = '|',
 				section_separators = '',
 			},
@@ -248,7 +249,7 @@ return {
 		},
 		build = function() require("gitlab.server").build(true) end, -- Builds the Go binary
 		config = function()
-			require("gitlab").setup()
+			require "sankar.gitlab"
 		end,
 	}
 }
