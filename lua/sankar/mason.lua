@@ -24,6 +24,9 @@ local servers = {
 	cssls = {},
 	eslint = {},
 
+	-- xml
+	lemminx = {},
+
 	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = false },
