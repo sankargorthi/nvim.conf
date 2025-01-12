@@ -24,18 +24,20 @@ local opts = {
 				group = augrp,
 				buffer = bufnr, -- Scoped to this specific buffer
 				callback = function()
-					local filetype = vim.bo[bufnr].filetype
-					if vim.tbl_contains(supported_filetypes, filetype) then
-						-- Format the buffer
-						vim.lsp.buf.format({ bufnr = bufnr })
+					vim.schedule(function()
+						local filetype = vim.bo[bufnr].filetype
+						if vim.tbl_contains(supported_filetypes, filetype) then
+							-- Format the buffer
+							vim.lsp.buf.format({ bufnr = bufnr })
 
-						-- Organize imports
-						local params = {
-							command = '_typescript.organizeImports',
-							arguments = { vim.api.nvim_buf_get_name(bufnr) },
-						}
-						vim.lsp.buf.execute_command(params)
-					end
+							-- Organize imports
+							local params = {
+								command = '_typescript.organizeImports',
+								arguments = { vim.api.nvim_buf_get_name(bufnr) },
+							}
+							vim.lsp.buf.execute_command(params)
+						end
+					end)
 				end,
 			})
 		end
