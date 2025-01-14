@@ -14,7 +14,7 @@ return {
 		name = 'catppuccin',
 		lazy = false,
 		priority = 1000,
-		config = function ()
+		config = function()
 			vim.cmd.colorscheme 'catppuccin-frappe'
 		end
 	},
@@ -192,10 +192,11 @@ return {
 		"iamcco/markdown-preview.nvim",
 		lazy = "VeryLazy",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = function()
-			vim.fn["mkdp#util#install"]()
+		build = "cd app && yarn install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
 		end,
+		ft = { "markdown" },
 	},
 	{
 		"nvim-telescope/telescope-file-browser.nvim",
@@ -208,8 +209,8 @@ return {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
 			"sindrets/diffview.nvim",
-			"stevearc/dressing.nvim",                                 -- Recommended but not required. Better UI for pickers.
-			"nvim-tree/nvim-web-devicons",                            -- Recommended but not required. Icons in discussion tree.
+			"stevearc/dressing.nvim",                                -- Recommended but not required. Better UI for pickers.
+			"nvim-tree/nvim-web-devicons",                           -- Recommended but not required. Icons in discussion tree.
 		},
 		build = function() require("gitlab.server").build(true) end, -- Builds the Go binary
 		config = function()
