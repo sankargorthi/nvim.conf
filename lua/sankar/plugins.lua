@@ -1,14 +1,14 @@
 return {
-	-- {
-	-- 	"oxfist/night-owl.nvim",
-	-- 	name = 'nightowl',
-	-- 	lazy = false,   -- make sure we load this during startup if it is your main colorscheme
-	-- 	priority = 1000, -- make sure to load this before all the other start plugins
-	-- 	config = function()
-	-- 		-- load the colorscheme here
-	-- 		vim.cmd.colorscheme("night-owl")
-	-- 	end,
-	-- },
+	{
+		"oxfist/night-owl.nvim",
+		name = 'nightowl',
+		lazy = false,  -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
+		config = function()
+			-- load the colorscheme here
+			-- vim.cmd.colorscheme("night-owl")
+		end,
+	},
 	{
 		"catppuccin/nvim",
 		name = 'catppuccin',
@@ -131,40 +131,7 @@ return {
 	{
 		-- Adds git related signs to the gutter, as well as utilities for managing changes
 		'lewis6991/gitsigns.nvim',
-		opts = {
-			-- See `:help gitsigns.txt`
-			signs = {
-				add = { text = '+' },
-				change = { text = '~' },
-				delete = { text = '_' },
-				topdelete = { text = '‾' },
-				changedelete = { text = '~' },
-			},
-			on_attach = function(bufnr)
-				vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
-
-				-- don't override the built-in and fugitive keymaps
-				local gs = package.loaded.gitsigns
-				vim.keymap.set({ 'n', 'v' }, ']c', function()
-					if vim.wo.diff then
-						return ']c'
-					end
-					vim.schedule(function()
-						gs.next_hunk()
-					end)
-					return '<Ignore>'
-				end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
-				vim.keymap.set({ 'n', 'v' }, '[c', function()
-					if vim.wo.diff then
-						return '[c'
-					end
-					vim.schedule(function()
-						gs.prev_hunk()
-					end)
-					return '<Ignore>'
-				end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
-			end,
-		},
+		opts = require 'sankar.gitsigns'
 	},
 	{
 		-- Autocompletion
