@@ -109,7 +109,7 @@ return {
 	{ 'numToStr/Comment.nvim',      opts = {} },
 
 	-- UI Language plugins
-	{ 'norcalli/nvim-colorizer.lua' },
+	{ 'catgoose/nvim-colorizer.lua' },
 	{
 		'nvimtools/none-ls.nvim',
 		event = 'VeryLazy',
