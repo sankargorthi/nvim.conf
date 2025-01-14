@@ -44,6 +44,13 @@ return {
 	-- Git plugins
 	{ 'tpope/vim-fugitive' },
 
+	{
+		'ThePrimeagen/git-worktree.nvim',
+		config = function()
+			require 'sankar.configs.worktree'
+		end
+	},
+
 	-- Undo
 	{ 'mbbill/undotree' },
 
