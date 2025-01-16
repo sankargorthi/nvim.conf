@@ -118,6 +118,8 @@ return {
 		},
 	},
 
+	{ 'mfussenegger/nvim-jdtls' },
+
 	-- {
 	-- 	"christoomey/vim-tmux-navigator",
 	-- 	cmd = {
