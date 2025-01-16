@@ -4,6 +4,9 @@ require("sankar")
 
 -- customizations
 
+-- lualine controls the tabline for me. hide it in vim for now
+vim.go.showtabline = 0
+
 -- show line numbers
 vim.o.number = true
 vim.o.relativenumber = true
