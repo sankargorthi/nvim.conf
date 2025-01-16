@@ -2,8 +2,7 @@ return {
 	{
 		"oxfist/night-owl.nvim",
 		name = 'nightowl',
-		lazy = false,  -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
+		lazy = 'VeryLazy',
 		config = function()
 			-- load the colorscheme here
 			-- vim.cmd.colorscheme("night-owl")
@@ -12,24 +11,23 @@ return {
 	{
 		"catppuccin/nvim",
 		name = 'catppuccin',
-		lazy = false,
-		priority = 1000,
+		lazy = false,  -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
 			vim.cmd.colorscheme 'catppuccin-frappe'
 		end
 	},
-	-- {
-	-- 	"folke/tokyonight.nvim",
-	-- 	name = 'tokyonight',
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		vim.cmd.colorscheme 'tokyonight-day'
-	-- 	end
-	-- },
+	{
+		"folke/tokyonight.nvim",
+		name = 'tokyonight',
+		lazy = 'VeryLazy',
+		-- config = function()
+		-- 	vim.cmd.colorscheme 'tokyonight-day'
+		-- end
+	},
 	{
 		'nvim-telescope/telescope.nvim',
-		tag = '0.1.4',
+		tag = '0.1.8',
 		-- or                              , branch = '0.1.x',
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
@@ -181,7 +179,7 @@ return {
 		"harrisoncramer/gitlab.nvim",
 		dependencies = {
 			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
+			{ "nvim-lua/plenary.nvim", commit = '2d9b06177a975543726ce5c73fca176cedbffe9d' },
 			"sindrets/diffview.nvim",
 			"stevearc/dressing.nvim",                                -- Recommended but not required. Better UI for pickers.
 			"nvim-tree/nvim-web-devicons",                           -- Recommended but not required. Icons in discussion tree.

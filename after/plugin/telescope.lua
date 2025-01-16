@@ -7,8 +7,10 @@ require('telescope').setup({
 		-- layout_strategy = 'horizontal',
 		layout_config = { height = 0.95, width = 0.99 },
 		path_display = {
-			smart = true,
-			absolute = false
+			-- smart = true,
+			-- There's a known issue with truncate and git worktree. Don't use this until that is fixed
+			-- truncate = DO_NOT_USE
+			absolute = false,
 		}
 	}
 })
