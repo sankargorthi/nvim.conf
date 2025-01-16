@@ -36,7 +36,10 @@ return {
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter-textobjects',
 		},
-		build = ':TSUpdate'
+		build = ':TSUpdate',
+		config = function ()
+			require 'sankar.treesitter'
+		end
 	},
 
 	-- Git plugins
