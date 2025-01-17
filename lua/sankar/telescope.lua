@@ -6,6 +6,9 @@ require('telescope').setup({
 		layout_strategy = 'vertical',
 		-- layout_strategy = 'horizontal',
 		layout_config = { height = 0.95, width = 0.99 },
+		-- pickers = {
+		-- 	find_files = { hidden = true },
+		-- },
 		path_display = {
 			-- smart = true,
 			-- There's a known issue with truncate and git worktree. Don't use this until that is fixed
@@ -26,5 +29,5 @@ vim.keymap.set('n', '<leader>e', require('telescope.builtin').oldfiles, { desc =
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>gw', require('telescope').extensions.git_worktree.git_worktrees,
 	{ desc = 'Browse git worktrees' })
-vim.keymap.set('n', 'pwt', require('telescope').extensions.git_worktree.create_git_worktree,
+vim.keymap.set('n', '<leader>cw', require('telescope').extensions.git_worktree.create_git_worktree,
 	{ desc = 'Prompt to create git worktree' })

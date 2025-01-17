@@ -29,7 +29,10 @@ return {
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.8',
 		-- or                              , branch = '0.1.x',
-		dependencies = { 'nvim-lua/plenary.nvim' }
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		config = function()
+			require 'sankar.telescope'
+		end
 	},
 	{
 		'nvim-treesitter/nvim-treesitter',
@@ -37,13 +40,18 @@ return {
 			'nvim-treesitter/nvim-treesitter-textobjects',
 		},
 		build = ':TSUpdate',
-		config = function ()
+		config = function()
 			require 'sankar.treesitter'
 		end
 	},
 
 	-- Git plugins
-	{ 'tpope/vim-fugitive' },
+	{
+		'tpope/vim-fugitive',
+		config = function()
+			require 'sankar.fugitive'
+		end
+	},
 
 	{
 		'ThePrimeagen/git-worktree.nvim',
@@ -53,10 +61,20 @@ return {
 	},
 
 	-- Undo
-	{ 'mbbill/undotree' },
+	{
+		'mbbill/undotree',
+		config = function()
+			require 'sankar.undotree'
+		end
+	},
 
 	-- blamer
-	{ 'APZelos/blamer.nvim' },
+	{
+		'APZelos/blamer.nvim',
+		config = function()
+			require 'sankar.blamer'
+		end
+	},
 
 	{
 		-- Set lualine as statusline
@@ -78,10 +96,15 @@ return {
 	},
 
 	-- "gc" to comment visual regions/lines
-	{ 'numToStr/Comment.nvim',      opts = {} },
+	{ 'numToStr/Comment.nvim',  opts = {} },
 
 	-- UI Language plugins
-	{ 'catgoose/nvim-colorizer.lua' },
+	{
+		'catgoose/nvim-colorizer.lua',
+		config = function()
+			require 'sankar.colorizer'
+		end
+	},
 	{
 		'nvimtools/none-ls.nvim',
 		event = 'VeryLazy',
