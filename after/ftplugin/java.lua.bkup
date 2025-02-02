@@ -1,18 +1,28 @@
+local jdtls_path = vim.fn.expand("~/.local/share/jdtls/1.43.0")
+
 -- Find the closest gradlew path and use that as the workspace_dir
 local function find_project_root()
 	local current_dir = vim.fn.getcwd()
 	local gradlew_path = vim.fn.findfile('gradlew', current_dir .. ';')
 
+	print("Current Dir: ", current_dir)
+	print("Gradle path: ", gradlew_path)
+
 	if gradlew_path ~= '' then
 		-- Extract the directory containing gradlew
-		return vim.fn.fnamemodify(gradlew_path, ':p:h')
+		local returnValue = vim.fn.fnamemodify(gradlew_path, ':p:h')
+		print("Found gradle path: ", gradlew_path)
+		return  returnValue
 	end
 
 	return nil -- gradlew not found
 end
 
-local rootDirFound = vim.fs.root(0, {".git", "mvnw", "gradlew"})
-
+local rootDirFound = vim.fs.find({ "gradlew" }, { upward = true } )[1]
+print("First found this: ", rootDirFound)
+if rootDirFound then
+	rootDirFound = vim.fs.dirname(rootDirFound)
+end
 print("Starting a java repo", rootDirFound)
 
 local config = {
@@ -25,17 +35,18 @@ local config = {
 		'-Declipse.product=org.eclipse.jdt.ls.core.product',
 		'-Dlog.protocol=true',
 		'-Dlog.level=ALL',
-		'-Xmx1g',
+		'-Xmx2g',
 		'--add-modules=ALL-SYSTEM',
 		'--add-opens', 'java.base/java.util=ALL-UNNAMED',
 		'--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
-		'-jar', '/opt/homebrew/Cellar/jdtls/1.43.0/libexec/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar',
-		'-configuration', '/opt/homebrew/Cellar/jdtls/1.43.0/libexec/config_mac_arm',
+		'-jar', jdtls_path .. '/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar',
+		'-configuration', jdtls_path .. '/config_mac_arm/',
 
 		'-data', find_project_root()
 	},
 
 	root_dir = rootDirFound
 }
+vim.lsp.set_log_level('debug')
 require('jdtls').start_or_attach(config)

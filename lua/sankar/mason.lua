@@ -10,7 +10,6 @@ local servers = {
 	-- pyright = {},
 	-- rust_analyzer = {},
 	jsonls = {},
-	--	jdtls = {},
 	marksman = {},
 	ts_ls = {
 		root_dir = util.root_pattern('.git')(fname),
@@ -33,7 +32,11 @@ local servers = {
 			telemetry = { enable = false },
 			diagnostics = {
 				globals = { 'vim', 'fname' }
-			}
+			},
+			runtime = {
+				-- Specify Lua version used by Neovim (5.1)
+				version = 'LuaJIT',
+			},
 		},
 	},
 	vimls = {},

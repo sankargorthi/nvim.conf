@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 
+-- make lazy available immediately
 vim.opt.rtp:prepend(lazypath)
 
--- Added this line to our initial lazy-config.lua file (Remove this comment if you want to)
 require("lazy").setup('sankar.plugins', { defaults = { lazy = false }})

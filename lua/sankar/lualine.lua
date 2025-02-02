@@ -21,7 +21,7 @@ local M = {
 	},
 	sections = {
 		lualine_a = { 'mode' },
-		lualine_b = { 'branch', 'diagnostics' },
+		lualine_b = { 'diagnostics' },
 		lualine_c = {
 			{
 				'filename',

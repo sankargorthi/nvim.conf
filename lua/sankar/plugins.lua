@@ -1,24 +1,32 @@
 return {
 	{
-		"oxfist/night-owl.nvim",
+		'rose-pine/neovim',
+		name = 'rose-pine',
+		lazy = false,
+		priority = 1000, -- make sure to load this before all the other start plugins
+		config = function()
+			vim.cmd.colorscheme('rose-pine-moon')
+		end
+	},
+	{
+		'oxfist/night-owl.nvim',
 		name = 'nightowl',
 		lazy = 'VeryLazy',
 		config = function()
 			-- load the colorscheme here
-			-- vim.cmd.colorscheme("night-owl")
+			-- vim.cmd.colorscheme('night-owl')
 		end,
 	},
 	{
-		"catppuccin/nvim",
+		'catppuccin/nvim',
 		name = 'catppuccin',
-		lazy = false,  -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
-		config = function()
-			vim.cmd.colorscheme 'catppuccin-frappe'
-		end
+		lazy = 'VeryLazy', -- make sure we load this during startup if it is your main colorscheme
+		-- config = function()
+		-- 	vim.cmd.colorscheme 'catppuccin-latte'
+		-- end
 	},
 	{
-		"folke/tokyonight.nvim",
+		'folke/tokyonight.nvim',
 		name = 'tokyonight',
 		lazy = 'VeryLazy',
 		-- config = function()
@@ -69,12 +77,12 @@ return {
 	},
 
 	-- blamer
-	{
-		'APZelos/blamer.nvim',
-		config = function()
-			require 'sankar.blamer'
-		end
-	},
+	-- {
+	-- 	'APZelos/blamer.nvim',
+	-- 	config = function()
+	-- 		require 'sankar.blamer'
+	-- 	end
+	-- },
 
 	{
 		-- Set lualine as statusline
@@ -95,7 +103,7 @@ return {
 		opts = {},
 	},
 
-	-- "gc" to comment visual regions/lines
+	-- 'gc' to comment visual regions/lines
 	{ 'numToStr/Comment.nvim',  opts = {} },
 
 	-- UI Language plugins
@@ -143,21 +151,23 @@ return {
 
 	{ 'mfussenegger/nvim-jdtls' },
 
+	{ 'mfussenegger/nvim-dap' },
+
 	-- {
-	-- 	"christoomey/vim-tmux-navigator",
+	-- 	'christoomey/vim-tmux-navigator',
 	-- 	cmd = {
-	-- 		"TmuxNavigateLeft",
-	-- 		"TmuxNavigateDown",
-	-- 		"TmuxNavigateUp",
-	-- 		"TmuxNavigateRight",
-	-- 		"TmuxNavigatePrevious",
+	-- 		'TmuxNavigateLeft',
+	-- 		'TmuxNavigateDown',
+	-- 		'TmuxNavigateUp',
+	-- 		'TmuxNavigateRight',
+	-- 		'TmuxNavigatePrevious',
 	-- 	},
 	-- 	keys = {
-	-- 		{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-	-- 		{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-	-- 		{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-	-- 		{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-	-- 		{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+	-- 		{ '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
+	-- 		{ '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
+	-- 		{ '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
+	-- 		{ '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
+	-- 		{ '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
 	-- 	},
 	-- },
 
@@ -183,38 +193,38 @@ return {
 	},
 	{
 		'MeanderingProgrammer/render-markdown.nvim',
-		lazy = "VeryLazy",
-		ft = { "markdown" },
+		lazy = 'VeryLazy',
+		ft = { 'markdown' },
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
 		---@module 'render-markdown',
 	},
 	{
-		"iamcco/markdown-preview.nvim",
-		lazy = "VeryLazy",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		build = "cd app && yarn install",
+		'iamcco/markdown-preview.nvim',
+		lazy = 'VeryLazy',
+		cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+		build = 'cd app && yarn install',
 		init = function()
-			vim.g.mkdp_filetypes = { "markdown" }
+			vim.g.mkdp_filetypes = { 'markdown' }
 		end,
-		ft = { "markdown" },
+		ft = { 'markdown' },
 	},
 	{
-		"nvim-telescope/telescope-file-browser.nvim",
-		lazy = "VeryLazy",
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+		'nvim-telescope/telescope-file-browser.nvim',
+		lazy = 'VeryLazy',
+		dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' }
 	},
 	{
-		"harrisoncramer/gitlab.nvim",
+		'harrisoncramer/gitlab.nvim',
 		dependencies = {
-			"MunifTanjim/nui.nvim",
-			{ "nvim-lua/plenary.nvim", commit = '2d9b06177a975543726ce5c73fca176cedbffe9d' },
-			"sindrets/diffview.nvim",
-			"stevearc/dressing.nvim",                                -- Recommended but not required. Better UI for pickers.
-			"nvim-tree/nvim-web-devicons",                           -- Recommended but not required. Icons in discussion tree.
+			'MunifTanjim/nui.nvim',
+			{ 'nvim-lua/plenary.nvim', commit = '2d9b06177a975543726ce5c73fca176cedbffe9d' },
+			'sindrets/diffview.nvim',
+			'stevearc/dressing.nvim',                                -- Recommended but not required. Better UI for pickers.
+			'nvim-tree/nvim-web-devicons',                           -- Recommended but not required. Icons in discussion tree.
 		},
-		build = function() require("gitlab.server").build(true) end, -- Builds the Go binary
+		build = function() require('gitlab.server').build(true) end, -- Builds the Go binary
 		config = function()
-			require "sankar.gitlab"
+			require 'sankar.gitlab'
 		end,
 	}
 }
