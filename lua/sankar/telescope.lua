@@ -6,11 +6,12 @@ local fzf = require 'telescope'.extensions.fzf
 
 require('telescope').setup({
 	defaults = {
-		sorting_strategy = 'descending',
+		sorting_strategy = 'ascending',
 		file_sorter = fzf.native_fuzzy_sorter,
 		layout_strategy = 'vertical',
 		layout_config = {
 			prompt_position = 'top',
+			mirror = true, -- show results on top
 			height = 0.6,
 			width = 0.6
 		},
