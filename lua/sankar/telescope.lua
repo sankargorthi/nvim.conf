@@ -1,8 +1,13 @@
 require('telescope').load_extension 'file_browser'
 require('telescope').load_extension 'git_worktree'
+require('telescope').load_extension 'fzf'
+
+local fzf = require 'telescope'.extensions.fzf
 
 require('telescope').setup({
 	defaults = {
+		sorting_strategy = 'descending',
+		file_sorter = fzf.native_fuzzy_sorter,
 		layout_strategy = 'vertical',
 		layout_config = {
 			prompt_position = 'top',
@@ -31,3 +36,5 @@ vim.keymap.set('n', '<leader>gw', require('telescope').extensions.git_worktree.g
 vim.keymap.set('n', '<leader>cw', require('telescope').extensions.git_worktree.create_git_worktree,
 	{ desc = 'Prompt to create git worktree' })
 vim.keymap.set('n', '<leader>ff', builtin.live_grep, { desc = '[?] Search across all files' })
+vim.keymap.set('n', '<leader>hh', builtin.help_tags, { desc = '[?] Search across help files' })
+vim.keymap.set('n', '<leader>mm', builtin.man_pages, { desc = '[?] Search across man pages' })
