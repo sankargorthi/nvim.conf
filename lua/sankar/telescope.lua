@@ -4,13 +4,12 @@ require('telescope').load_extension 'git_worktree'
 require('telescope').setup({
 	defaults = {
 		layout_strategy = 'vertical',
-		-- layout_strategy = 'horizontal',
-		layout_config = { height = 0.95, width = 0.99 },
-		-- pickers = {
-		-- 	find_files = { hidden = true },
-		-- },
+		layout_config = {
+			prompt_position = 'top',
+			height = 0.6,
+			width = 0.6
+		},
 		path_display = {
-			-- smart = true,
 			-- There's a known issue with truncate and git worktree. Don't use this until that is fixed
 			-- truncate = DO_NOT_USE
 			absolute = false,
@@ -31,3 +30,4 @@ vim.keymap.set('n', '<leader>gw', require('telescope').extensions.git_worktree.g
 	{ desc = 'Browse git worktrees' })
 vim.keymap.set('n', '<leader>cw', require('telescope').extensions.git_worktree.create_git_worktree,
 	{ desc = 'Prompt to create git worktree' })
+vim.keymap.set('n', '<leader>ff', builtin.live_grep, { desc = '[?] Search across all files' })

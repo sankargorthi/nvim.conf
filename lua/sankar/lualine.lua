@@ -34,13 +34,13 @@ local M = {
 		lualine_z = { 'location', 'tabs' }
 	},
 	inactive_sections = {
-		lualine_a = { 'mode' },
+		lualine_a = {},
 		lualine_b = {},
 		lualine_c = {
 			{
 				'filename',
-				path = 1,
-				shorting_target = 60
+				path = 0,
+				shorting_target = 20
 			}
 		},
 		lualine_x = { 'location' },
