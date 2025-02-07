@@ -17,3 +17,32 @@ vim.keymap.set('n', '<leader>rc', function()
 	print("Config reloaded!")
 end, { desc = "Refresh Neovim configuration" })
 
+vim.keymap.set("n", "<leader>so", function()
+	vim.cmd("source %")
+	print("Sourced!")
+end, { desc = "Source current file" })
+
+local function toggle_whitespace()
+	if vim.wo.list then
+		print("Hide whitespace")
+		vim.wo.list = false
+		vim.opt.listchars = {}
+	else
+		print("Showing whitespace")
+		vim.wo.list = true
+		vim.opt.listchars:append({
+			tab = ">-",
+			trail = "·",
+		})
+	end
+	vim.cmd("edit") -- Reloads the buffer without losing changes
+end
+
+vim.api.nvim_create_autocmd("User", {
+	pattern = "ToggleWhitespace",
+	callback = toggle_whitespace,
+})
+
+vim.keymap.set("n", "<leader>ss", function()
+	vim.api.nvim_exec_autocmds("User", { pattern = "ToggleWhitespace" })
+end, { desc = "Toggle whitespace display" })

@@ -13,13 +13,15 @@ require('telescope').setup({
 			prompt_position = 'top',
 			mirror = true, -- show results on top
 			height = 0.6,
-			width = 0.6
+			width = 0.65,
 		},
 		path_display = {
 			-- There's a known issue with truncate and git worktree. Don't use this until that is fixed
 			-- truncate = DO_NOT_USE
 			absolute = false,
-		}
+			shorten = true,
+			smart = true,
+		},
 	}
 })
 
