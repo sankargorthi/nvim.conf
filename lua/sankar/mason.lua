@@ -5,6 +5,7 @@ require('mason-lspconfig').setup()
 
 local util = require 'lspconfig.util'
 local servers = {
+	bashls = {},
 	-- clangd = {},
 	-- gopls = {},
 	-- pyright = {},
