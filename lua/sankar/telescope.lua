@@ -26,13 +26,13 @@ require('telescope').setup({
 	}
 })
 
-vim.keymap.set('n', '<leader>po', builtin.find_files, {})
-vim.keymap.set('n', '<leader>pf', ':Telescope file_browser<CR>', {})
+vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = '[?] Search in git files' })
+vim.keymap.set('n', '<leader>po', builtin.find_files, { desc = '[?] Search workspace files' })
+vim.keymap.set('n', '<leader>pf', ':Telescope file_browser<CR>', { desc = '[?] Search workspace tree' })
 vim.keymap.set('n', '<leader>e', builtin.oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>gw', extensions.git_worktree.git_worktrees, { desc = 'Browse git worktrees' })
 vim.keymap.set('n', '<leader>cw', extensions.git_worktree.create_git_worktree, { desc = 'Prompt to create git worktree' })
-vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = '[?] Search in git files' })
 vim.keymap.set('n', '<leader>ff', builtin.live_grep, { desc = '[?] Search across all files' })
 vim.keymap.set('n', '<leader>hh', builtin.help_tags, { desc = '[?] Search across help files' })
 vim.keymap.set('n', '<leader>mm', builtin.man_pages, { desc = '[?] Search across man pages' })

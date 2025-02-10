@@ -169,7 +169,7 @@ return {
 		},
 	},
 
-	-- zenish mode
+	-- Zenish mode
 	{
 		'folke/twilight.nvim',
 		opts = {
@@ -225,7 +225,7 @@ return {
 		opts = require 'sankar.gitsigns'
 	},
 	{
-		-- Autocompletion
+		-- Auto Completion
 		'hrsh7th/nvim-cmp',
 		dependencies = {
 			-- Snippet Engine & its associated nvim-cmp source
