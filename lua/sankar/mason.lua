@@ -1,6 +1,5 @@
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
-require('mason').setup()
 require('mason-lspconfig').setup()
 
 local util = require 'lspconfig.util'
@@ -48,12 +47,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local on_attach = function(_, bufnr)
-	-- NOTE: Remember that lua is a real programming language, and as such it is possible
-	-- to define small helper and utility functions so you don't have to repeat yourself
-	-- many times.
-	--
-	-- In this case, we create a function that lets us more easily define mappings specific
-	-- for LSP related items. It sets the mode, buffer and description for us each time.
+	local builtins = require 'telescope.builtin'
 	local nmap = function(keys, func, desc)
 		if desc then
 			desc = 'LSP: ' .. desc
@@ -63,7 +57,7 @@ local on_attach = function(_, bufnr)
 	end
 
 	local function getProductionReferences(...)
-		require('telescope.builtin').lsp_references({
+		builtins.lsp_references({
 			...,
 			cwd = vim.fn.expand('%:p:h'),
 			file_ignore_patterns = { "__tests__", "__test__", "*.test.js", "*.stories.jsx", "__stories__" }
@@ -72,14 +66,13 @@ local on_attach = function(_, bufnr)
 
 	nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 	nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-	nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+	nmap('gd', builtins.lsp_definitions, '[G]oto [D]efinition')
 	nmap('gr', getProductionReferences, '[G]oto [R]eferences in production code')
-	nmap('gra', require('telescope.builtin').lsp_references, '[G]oto [R]eferences [A]ll scopes')
-	nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-	nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-	nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-	nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+	nmap('gra', builtins.lsp_references, '[G]oto [R]eferences [A]ll scopes')
+	nmap('gI', builtins.lsp_implementations, '[G]oto [I]mplementation')
+	nmap('<leader>D', builtins.lsp_type_definitions, 'Type [D]efinition')
+	nmap('<leader>ds', builtins.lsp_document_symbols, '[D]ocument [S]ymbols')
+	nmap('<leader>ws', builtins.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
 	-- See `:help K` for why this keymap
 	nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
