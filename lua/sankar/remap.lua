@@ -46,3 +46,5 @@ vim.api.nvim_create_autocmd('User', {
 vim.keymap.set('n', '<leader>ss', function()
 	vim.api.nvim_exec_autocmds('User', { pattern = 'ToggleWhitespace' })
 end, { desc = 'Toggle whitespace display' })
+
+vim.keymap.set('n', '<leader>tt', ':Twilight<CR>', { desc = 'Toggle Twilight mode' })
