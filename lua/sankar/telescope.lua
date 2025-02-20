@@ -1,11 +1,8 @@
-require 'telescope'.load_extension 'file_browser'
-require 'telescope'.load_extension 'git_worktree'
-require 'telescope'.load_extension 'fzf'
-
+local telescope = require 'telescope'
 local builtin = require 'telescope.builtin'
-local extensions = require 'telescope'.extensions
+local extensions = telescope.extensions
 
-require('telescope').setup({
+telescope.setup({
 	defaults = {
 		sorting_strategy = 'ascending',
 		file_sorter = extensions.fzf.native_fuzzy_sorter,
@@ -21,11 +18,18 @@ require('telescope').setup({
 			-- truncate = DO_NOT_USE
 			absolute = false,
 			-- shorten = true,
-			-- smart = true,
+			smart = true,
 		},
 	}
 })
 
+-- Extensions
+telescope.load_extension 'file_browser'
+telescope.load_extension 'git_worktree'
+telescope.load_extension 'fzf'
+telescope.load_extension 'dap'
+
+-- Keymaps
 vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = '[?] Search in git files' })
 vim.keymap.set('n', '<leader>po', builtin.find_files, { desc = '[?] Search workspace files' })
 vim.keymap.set('n', '<leader>pf', ':Telescope file_browser<CR>', { desc = '[?] Search workspace tree' })

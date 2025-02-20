@@ -48,7 +48,10 @@ return {
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.8',
 		-- or                              , branch = '0.1.x',
-		dependencies = { 'nvim-lua/plenary.nvim' },
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'nvim-telescope/telescope-dap.nvim',
+		},
 		config = function()
 			require 'sankar.telescope'
 		end
@@ -195,11 +198,33 @@ return {
 
 	},
 
-	{ 'folke/todo-comments.nvim', opts = {} },
+	{
+		'folke/todo-comments.nvim',
+		opts = {
+			search = {
+				pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
+			},
+			hightlight = {
+				pattern = [[.*<(KEYWORDS)\s*]], -- pattern or table of patterns, used for highlighting (vim regex)
+			}
+		}
+	},
 
 	{ 'mfussenegger/nvim-jdtls' },
 
-	{ 'mfussenegger/nvim-dap' },
+	{
+		'jbyuki/one-small-step-for-vimkind',
+		dependencies = {
+			'mfussenegger/nvim-dap'
+		},
+		config = function()
+			require 'sankar.nvim-dap'
+		end
+	},
+
+	{
+		'mfussenegger/nvim-dap',
+	},
 
 	-- {
 	-- 	'christoomey/vim-tmux-navigator',
