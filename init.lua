@@ -1,6 +1,6 @@
 vim.opt.termguicolors = true
 
-require("sankar")
+require('sankar')
 
 -- customizations
 
@@ -19,8 +19,8 @@ vim.opt.undofile = true
 
 -- make editor prettier
 vim.opt.scrolloff = 20
-vim.opt.colorcolumn = "100"
-vim.opt.signcolumn = "yes"
+vim.opt.colorcolumn = '100'
+vim.opt.signcolumn = 'yes'
 
 -- nice tabs
 vim.opt.tabstop = 2

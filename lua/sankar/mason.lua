@@ -60,7 +60,7 @@ local on_attach = function(_, bufnr)
 		builtins.lsp_references({
 			...,
 			cwd = vim.fn.expand('%:p:h'),
-			file_ignore_patterns = { "__tests__", "__test__", "*.test.js", "*.stories.jsx", "__stories__" }
+			file_ignore_patterns = { '__tests__', '__test__', '*.test.js', '*.stories.jsx', '__stories__' }
 		})
 	end
 

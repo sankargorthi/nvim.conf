@@ -1,4 +1,4 @@
-local augrp = vim.api.nvim_create_augroup("LspFormatting", {})
+local augrp = vim.api.nvim_create_augroup('LspFormatting', {})
 local null_ls = require 'null-ls'
 
 local opts = {
@@ -6,7 +6,7 @@ local opts = {
 		null_ls.builtins.formatting.prettierd,
 	},
 	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
+		if client.supports_method('textDocument/formatting') then
 			vim.api.nvim_clear_autocmds({
 				group = augrp,
 				buffer = bufnr,
@@ -14,13 +14,13 @@ local opts = {
 
 			-- Define a list of filetypes to check
 			local supported_filetypes = {
-				"javascript",
-				"javascriptreact",
-				"typescript",
-				"typescriptreact",
+				'javascript',
+				'javascriptreact',
+				'typescript',
+				'typescriptreact',
 			}
 
-			vim.api.nvim_create_autocmd("BufWritePre", {
+			vim.api.nvim_create_autocmd('BufWritePre', {
 				group = augrp,
 				buffer = bufnr, -- Scoped to this specific buffer
 				callback = function()

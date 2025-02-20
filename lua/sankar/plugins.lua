@@ -14,9 +14,9 @@ return {
 
 			vim.cmd.colorscheme('rose-pine-moon')
 
-			vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-			vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+			vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+			vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+			vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
 		end
 	},
 	{
@@ -57,9 +57,9 @@ return {
 		end
 	},
 	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-		dependencies = { "nvim-telescope/telescope.nvim" },
+		'nvim-telescope/telescope-fzf-native.nvim',
+		build = 'make',
+		dependencies = { 'nvim-telescope/telescope.nvim' },
 	},
 
 	{
@@ -179,8 +179,8 @@ return {
 			dimming = {
 				alpha = 0.30, -- amount of dimming
 				-- we try to get the foreground from the highlight groups or fallback color
-				color = { "Normal", "#ffffff" },
-				term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
+				color = { 'Normal', '#ffffff' },
+				term_bg = '#000000', -- if guibg=NONE, this will be used to calculate text color
 				inactive = true, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
 			},
 			context = 10,      -- amount of lines we will try to show around the current line
@@ -188,10 +188,10 @@ return {
 			-- treesitter is used to automatically expand the visible text,
 			-- but you can further control the types of nodes that should always be fully expanded
 			expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
-				"function",
-				"method",
-				"table",
-				"if_statement",
+				'function',
+				'method',
+				'table',
+				'if_statement',
 			},
 			exclude = {}, -- exclude these filetypes
 		}

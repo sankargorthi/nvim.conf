@@ -9,6 +9,7 @@ local M = {
 	},
 	on_attach = function(bufnr)
 		vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+		vim.keymap.set('n', '<leader>hi', require('gitsigns').preview_hunk_inline, { buffer = bufnr, desc = 'Preview git hunk' })
 
 		-- don't override the built-in and fugitive keymaps
 		local gs = package.loaded.gitsigns
