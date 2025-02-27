@@ -36,6 +36,9 @@ vim.opt.clipboard = 'unnamedplus'
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 
+-- change cursorhold updatetime
+vim.opt.updatetime = 1500
+
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
