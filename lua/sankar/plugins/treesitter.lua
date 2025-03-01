@@ -8,6 +8,8 @@ local T = {
 		config = function()
 			require 'nvim-treesitter.configs'.setup {
 				-- A list of parser names, or 'all' (the five listed parsers should always be installed)
+				-- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+				diagnostics = { disable = { 'missing-fields' } },
 				ensure_installed = {
 					'bash',
 					'c',

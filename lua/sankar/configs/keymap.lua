@@ -24,7 +24,8 @@ local function toggle_whitespace()
 	if vim.wo.list then
 		print('Hide whitespace')
 		vim.wo.list = false
-		vim.opt.listchars = {}
+		vim.opt.listchars:remove('tab')
+		vim.opt.listchars:remove('trail')
 	else
 		print('Showing whitespace')
 		vim.wo.list = true

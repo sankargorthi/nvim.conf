@@ -14,6 +14,9 @@ local M = {
 				'typescript-language-server',
 			}
 		},
+		config = function ()
+			require 'mason'.setup()
+		end
 	},
 	{
 		-- LSP Configuration & Plugins
