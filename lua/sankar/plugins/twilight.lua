@@ -21,7 +21,10 @@ local T = {
 				'if_statement',
 			},
 			exclude = {}, -- exclude these filetypes
-		}
+		},
+		config = function()
+			vim.keymap.set('n', '<leader>tt', ':Twilight<CR>', { desc = '[T]oggle [T]wilight mode' })
+		end
 
 	},
 }

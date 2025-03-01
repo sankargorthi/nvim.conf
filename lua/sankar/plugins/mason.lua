@@ -110,7 +110,7 @@ local M = {
 				nmap('<leader>ws', builtins.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
 				-- See `:help K` for why this keymap
-				nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+				nmap('K', vim.lsp.buf.hover, 'Hover Do[K]umentation')
 				nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
 				-- Lesser used LSP functionality
