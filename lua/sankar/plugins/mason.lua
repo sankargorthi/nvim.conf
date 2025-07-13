@@ -5,17 +5,20 @@ local M = {
 	},
 	{
 		'williamboman/mason.nvim',
-		opts = {
-			ensure_installed = {
-				'prettierd',
-				'eslint_d',
-				'elsint-lsp',
-				'lua-language-server',
-				'typescript-language-server',
-			}
-		},
-		config = function ()
-			require 'mason'.setup()
+		config = function()
+			require 'mason'.setup({
+				ensure_installed = {
+					'biome',
+					'prettierd',
+					'eslint_d',
+					'elsint-lsp',
+					'lua-language-server',
+					'tailwindcss',
+					'tsserver',
+					-- 'typescript-language-server',
+					'lua_ls'
+				}
+			})
 		end
 	},
 	{
@@ -44,6 +47,7 @@ local M = {
 				-- gopls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
+				biome = {},
 				jsonls = {},
 				marksman = {},
 				ts_ls = {
@@ -56,7 +60,10 @@ local M = {
 				},
 				html = { filetypes = { 'html', 'twig', 'hbs' } },
 				cssls = {},
+				dockerls = {},
 				eslint = {},
+
+				gopls = {},
 
 				-- xml
 				lemminx = {},
@@ -156,24 +163,39 @@ local M = {
 				ensure_installed = vim.tbl_keys(servers),
 			}
 
-			mason_lspconfig.setup_handlers {
-				function(server_name)
-					require('lspconfig')[server_name].setup {
-						capabilities = capabilities,
-						on_attach = on_attach,
-						settings = servers[server_name],
-						init_options = (servers[server_name] or {}).init_options,
-						filetypes = (servers[server_name] or {}).filetypes,
-					}
-				end,
-			}
+			-- mason_lspconfig.setup_handlers {
+			-- 	function(server_name)
+			-- 		require('lspconfig')[server_name].setup {
+			-- 			capabilities = capabilities,
+			-- 			on_attach = on_attach,
+			-- 			settings = servers[server_name],
+			-- 			init_options = (servers[server_name] or {}).init_options,
+			-- 			filetypes = (servers[server_name] or {}).filetypes,
+			-- 		}
+			-- 	end,
+			-- }
 
 			-- [[ Configure nvim-cmp ]]
 			-- See `:help cmp`
 			local cmp = require 'cmp'
 			local luasnip = require 'luasnip'
+			local types = require 'luasnip.util.types'
 			require('luasnip.loaders.from_vscode').lazy_load()
-			luasnip.config.setup {}
+			luasnip.config.setup {
+				history = true,
+
+				updateevents = 'TextChanged,TextChangedI',
+
+				enable_autosnippets = true,
+
+				ext_opts = {
+					[types.choiceNode] = {
+						active = {
+							virt_text = { { '<-', 'Error' } },
+						}
+					}
+				}
+			}
 
 			cmp.setup {
 				snippet = {

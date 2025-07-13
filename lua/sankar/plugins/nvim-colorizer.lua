@@ -4,6 +4,11 @@ local C = {
 		'catgoose/nvim-colorizer.lua',
 		config = function()
 			require 'colorizer'.setup({
+				filetypes = { 'scss', 'css' },
+				lazy_load = true,
+				user_default_options = {
+					names = false
+				},
 				css = {
 					hsl_fn = true
 				},
@@ -11,6 +16,7 @@ local C = {
 					hsl_fn = true
 				},
 				sass = {
+					enable = true,
 					hsl_fn = true
 				},
 			})
