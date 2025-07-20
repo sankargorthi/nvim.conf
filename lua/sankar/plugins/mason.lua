@@ -5,13 +5,14 @@ local M = {
 	},
 	{
 		'williamboman/mason.nvim',
+		version = '^1.0.0',
 		config = function()
 			require 'mason'.setup({
 				ensure_installed = {
 					'biome',
-					'prettierd',
-					'eslint_d',
-					'elsint-lsp',
+					-- 'prettierd',
+					-- 'eslint_d',
+					-- 'elsint-lsp',
 					'lua-language-server',
 					'tailwindcss',
 					'tsserver',
@@ -20,6 +21,14 @@ local M = {
 				}
 			})
 		end
+	},
+	{
+		'williamboman/mason-lspconfig.nvim',
+		version = '^1.0.0',
+		dependencies = {
+			'williamboman/mason.nvim',
+			'neovim/nvim-lspconfig'
+		}
 	},
 	{
 		-- LSP Configuration & Plugins
@@ -47,9 +56,10 @@ local M = {
 				-- gopls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
-				biome = {},
+				["biome@2.0.6"] = {},
 				jsonls = {},
 				marksman = {},
+				tailwindcss = {},
 				ts_ls = {
 					root_dir = util.root_pattern('.git')(fname),
 					init_options = {
@@ -127,14 +137,14 @@ local M = {
 				vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
 					vim.lsp.buf.format()
 				end, { desc = 'Format current buffer with LSP' })
-				-- Create a command `:OrganizeImports` local to the LSP buffer
-				vim.api.nvim_buf_create_user_command(bufnr, 'OrganizeImports', function(_)
-					local params = {
-						command = '_typescript.organizeImports',
-						arguments = { vim.api.nvim_buf_get_name(0) },
-					}
-					vim.lsp.buf.execute_command(params)
-				end, { desc = 'Organize Imports' })
+				-- -- Create a command `:OrganizeImports` local to the LSP buffer
+				-- vim.api.nvim_buf_create_user_command(bufnr, 'OrganizeImports', function(_)
+				-- 	local params = {
+				-- 		command = '_typescript.organizeImports',
+				-- 		arguments = { vim.api.nvim_buf_get_name(0) },
+				-- 	}
+				-- 	vim.lsp.buf.execute_command(params)
+				-- end, { desc = 'Organize Imports' })
 
 				if client.server_capabilities.documentHighlightProvider then
 					vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
@@ -163,17 +173,17 @@ local M = {
 				ensure_installed = vim.tbl_keys(servers),
 			}
 
-			-- mason_lspconfig.setup_handlers {
-			-- 	function(server_name)
-			-- 		require('lspconfig')[server_name].setup {
-			-- 			capabilities = capabilities,
-			-- 			on_attach = on_attach,
-			-- 			settings = servers[server_name],
-			-- 			init_options = (servers[server_name] or {}).init_options,
-			-- 			filetypes = (servers[server_name] or {}).filetypes,
-			-- 		}
-			-- 	end,
-			-- }
+			mason_lspconfig.setup_handlers {
+				function(server_name)
+					require('lspconfig')[server_name].setup {
+						capabilities = capabilities,
+						on_attach = on_attach,
+						settings = servers[server_name],
+						init_options = (servers[server_name] or {}).init_options,
+						filetypes = (servers[server_name] or {}).filetypes,
+					}
+				end,
+			}
 
 			-- [[ Configure nvim-cmp ]]
 			-- See `:help cmp`

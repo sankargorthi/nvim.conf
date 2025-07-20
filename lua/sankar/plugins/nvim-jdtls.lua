@@ -1,4 +1,4 @@
 local J = {
-	{ 'mfussenegger/nvim-jdtls' },
+	-- { 'mfussenegger/nvim-jdtls' },
 }
 return J
