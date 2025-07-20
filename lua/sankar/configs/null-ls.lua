@@ -2,14 +2,14 @@
 local formatting = require 'null-ls'.builtins.formatting
 
 local opts = {
-	sources = {
-		formatting.prettierd,
-		formatting.eslint_d,
-	},
-	on_attach = function(client)
-		if client.resolved_capabilities.document_formatting then
-			vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-		end
+	-- sources = {
+	-- 	formatting.prettierd,
+	-- 	formatting.eslint_d,
+	-- },
+	-- on_attach = function(client)
+	-- 	if client.resolved_capabilities.document_formatting then
+	-- 		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+	-- 	end
 
 		-- if client.resolved_capabilities.document_formatting then
 		-- 	vim.api.nvim_create_autocmd("BufWritePre", {
@@ -52,7 +52,7 @@ local opts = {
 		-- 			end,
 		-- 		})
 		-- 	end
-	end
+	-- end
 }
 
 return opts
