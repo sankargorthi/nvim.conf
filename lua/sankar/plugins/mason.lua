@@ -91,6 +91,7 @@ local M = {
 						},
 					},
 				},
+				mdx_analyzer = {},
 				vimls = {},
 			}
 

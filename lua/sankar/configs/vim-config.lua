@@ -1,6 +1,9 @@
 -- customizations
 vim.g.mapleader = ' '
 
+-- netrw
+vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
+
 -- lualine controls the tabline for me. Hide it in vim for now
 vim.go.showtabline = 0
 
