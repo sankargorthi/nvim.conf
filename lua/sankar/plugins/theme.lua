@@ -7,17 +7,18 @@ local T = {
 		config = function()
 			---@diagnostic disable-next-line: missing-fields
 			require('rose-pine').setup({
-				disable_background = true,
+				-- variant = 'dawn',
+				disable_background = false,
 				styles = {
 					italic = false
 				}
 			})
 
-			vim.cmd.colorscheme('rose-pine-moon')
+			vim.cmd.colorscheme('rose-pine-dawn')
 
-			vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-			vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-			vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+			-- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+			-- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+			-- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
 		end
 	},
 	-- {
@@ -40,10 +41,10 @@ local T = {
 	-- {
 	-- 	'folke/tokyonight.nvim',
 	-- 	name = 'tokyonight',
-	-- 	lazy = 'VeryLazy',
-	-- 	-- config = function()
-	-- 	-- 	vim.cmd.colorscheme 'tokyonight-day'
-	-- 	-- end
+	-- 	lazy = false, 
+	-- 	config = function()
+	-- 		vim.cmd.colorscheme 'tokyonight-day'
+	-- 	end
 	-- },
 }
 

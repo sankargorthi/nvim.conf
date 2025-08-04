@@ -2,4 +2,3 @@
 
 - Add jest runner
 - Fix LSP formatter to use ESLint rules instead
-- Add Biome autoformatter
