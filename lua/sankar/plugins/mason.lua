@@ -76,7 +76,13 @@ local M = {
 				gopls = {},
 
 				-- xml
-				lemminx = {},
+				lemminx = {
+					xml = {
+						validation = {
+							noGrammar = 'ignore',
+						}
+					}
+				},
 
 				lua_ls = {
 					Lua = {
