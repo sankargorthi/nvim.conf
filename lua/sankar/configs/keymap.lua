@@ -46,6 +46,36 @@ vim.keymap.set('n', '<leader>ss', function()
 	vim.api.nvim_exec_autocmds('User', { pattern = 'ToggleWhitespace' })
 end, { desc = '[S]how/Hide white[S]pace' })
 
+local function toggle_skip_worktree(skip)
+	local file_path = vim.fn.expand('%:p')
+
+	if file_path == '' then
+		vim.notify("Buffer has no associated file", vim.log.levels.WARN)
+		return
+	end
+
+	local action = skip and "--skip-worktree" or "--no-skip-worktree"
+	local message_verb = skip and "Skipped" or "Unskipped"
+
+	local cmd = "git update-index " .. action .. " " .. vim.fn.shellescape(file_path)
+
+	local result = vim.fn.system(cmd)
+
+	if vim.v.shell_error ~= 0 then
+		vim.notify("Git command failed:\n" .. result, vim.log.levels.ERROR)
+	else
+		vim.notify(message_verb .. " worktree for: " .. vim.fn.expand('%:t'), vim.log.levels.INFO)
+	end
+end
+
+vim.keymap.set('n', '<leader>sw', function()
+	toggle_skip_worktree(true)
+end, { noremap = true, silent = true, desc = "[S]kip [W]orktree" })
+
+vim.keymap.set('n', '<leader>su', function()
+	toggle_skip_worktree(false)
+end, { noremap = true, silent = true, desc = "[S]kip [U]nset" })
+
 -- TODO: Comments
 vim.keymap.set('n', ']t', function() require('todo-comments').jump_next() end, { desc = 'Next [T]odo comment' })
 vim.keymap.set('n', '[t', function() require('todo-comments').jump_prev() end, { desc = 'Previous [T]odo comment' })
