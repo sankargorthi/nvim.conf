@@ -115,19 +115,10 @@ local M = {
 					vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
 				end
 
-				local function getProductionReferences(...)
-					builtins.lsp_references({
-						...,
-						cwd = vim.fn.expand('%:p:h'),
-						file_ignore_patterns = { '__tests__', '__test__', '*.test.js', '*.stories.jsx', '__stories__' }
-					})
-				end
-
 				nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 				nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 				nmap('gd', builtins.lsp_definitions, '[G]oto [D]efinition')
-				nmap('gr', getProductionReferences, '[G]oto [R]eferences in production code')
-				nmap('gra', builtins.lsp_references, '[G]oto [R]eferences [A]ll scopes')
+				nmap('gr', builtins.lsp_references, '[G]oto [R]eferences [A]ll scopes')
 				nmap('gI', builtins.lsp_implementations, '[G]oto [I]mplementation')
 				nmap('<leader>D', builtins.lsp_type_definitions, 'Type [D]efinition')
 				nmap('<leader>ds', builtins.lsp_document_symbols, '[D]ocument [S]ymbols')
