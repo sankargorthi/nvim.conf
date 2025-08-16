@@ -71,9 +71,9 @@ local M = {
 				html = { filetypes = { 'html', 'twig', 'hbs' } },
 				cssls = {},
 				dockerls = {},
-				eslint = {},
+				-- eslint = {},
 
-				gopls = {},
+				-- gopls = {},
 
 				-- xml
 				lemminx = {
