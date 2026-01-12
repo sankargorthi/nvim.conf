@@ -4,7 +4,7 @@ local C = {
 		'catgoose/nvim-colorizer.lua',
 		config = function()
 			require 'colorizer'.setup({
-				filetypes = { 'scss', 'css' },
+				filetypes = { 'scss', 'css', 'json' },
 				lazy_load = true,
 				user_default_options = {
 					names = false

@@ -21,6 +21,7 @@ vim.opt.undofile = true
 vim.opt.scrolloff = 20
 vim.opt.colorcolumn = '100'
 vim.opt.signcolumn = 'yes'
+vim.opt.winborder = 'rounded'
 
 -- nice tabs
 vim.opt.tabstop = 2
@@ -47,3 +48,6 @@ vim.opt.incsearch = true
 
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
+
+-- Perf tuning
+vim.g.loaded_matchparen = 1

@@ -40,9 +40,11 @@ local T = {
 			telescope.load_extension 'dap'
 
 			-- Keymaps
-			vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = '[?] Search in git files' })
+			vim.keymap.set('n', '<leader>fg', builtin.git_files,
+				{ noremap = true, silent = true, desc = '[?] Search in git files' })
 			vim.keymap.set('n', '<leader>po', builtin.find_files, { desc = '[?] Search workspace files' })
 			vim.keymap.set('n', '<leader>pf', ':Telescope file_browser<CR>', { desc = '[?] Search workspace tree' })
+			vim.keymap.set('n', '<leader>gb', ':Telescope git_branches<CR>', { desc = '[] Browse [G]it [B]ranches' })
 			vim.keymap.set('n', '<leader>e', function()
 				builtin.oldfiles({ only_cwd = true })
 			end, { desc = '[?] Find recently opened files' })

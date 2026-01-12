@@ -11,6 +11,10 @@ local G = {
 				topdelete = { text = '‾' },
 				changedelete = { text = '~' },
 			},
+			current_line_blame_opts = {
+				delay = 5000,
+			},
+			update_debounce = 5000,
 			on_attach = function(bufnr)
 				vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
 				vim.keymap.set('n', '<leader>hi', require('gitsigns').preview_hunk_inline,

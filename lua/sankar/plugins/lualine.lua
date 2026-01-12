@@ -36,7 +36,7 @@ local L = {
 						shorting_target = 40,
 					},
 				},
-				lualine_x = { 'diff', 'encoding', 'fileformat', 'filetype' },
+				lualine_x = { 'encoding', 'fileformat', 'filetype' },
 				lualine_y = { keymap, 'searchcount', 'selectioncount', 'progress' },
 				lualine_z = { 'location', 'tabs' }
 			},
@@ -54,16 +54,6 @@ local L = {
 				lualine_y = {},
 				lualine_z = { 'tabs' }
 			},
-			extensions = {
-				'ctrlspace',
-				'fugitive',
-				'fzf',
-				'lazy',
-				'man',
-				'mason',
-				'quickfix',
-				'symbols-outline',
-			}
 		}
 	},
 }

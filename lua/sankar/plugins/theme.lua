@@ -41,7 +41,7 @@ local T = {
 	-- {
 	-- 	'folke/tokyonight.nvim',
 	-- 	name = 'tokyonight',
-	-- 	lazy = false, 
+	-- 	lazy = false,
 	-- 	config = function()
 	-- 		vim.cmd.colorscheme 'tokyonight-day'
 	-- 	end

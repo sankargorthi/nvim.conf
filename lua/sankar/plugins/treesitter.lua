@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local T = {
 	{
 		'nvim-treesitter/nvim-treesitter',
