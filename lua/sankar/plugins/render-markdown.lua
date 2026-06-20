@@ -2,9 +2,12 @@ local R = {
 	{
 		'MeanderingProgrammer/render-markdown.nvim',
 		lazy = 'VeryLazy',
-		ft = { 'markdown' },
+		ft = { 'markdown', 'rust', 'lua', 'python', 'typescript', 'typescriptreact', 'javascript' },
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
 		---@module 'render-markdown',
+		opts = {
+			file_types = { 'markdown', 'rust', 'lua', 'python', 'typescript', 'typescriptreact', 'javascript' },
+		},
 	},
 	{
 		'iamcco/markdown-preview.nvim',
