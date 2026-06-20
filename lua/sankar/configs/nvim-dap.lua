@@ -13,6 +13,21 @@ require('mason-nvim-dap').setup({
 	},
 })
 
+-- mason-nvim-dap registers js-debug-adapter as `js`, but vscode-js-debug
+-- (and neotest-vitest) call it via `pwa-node`. Bridge the name here.
+dap.adapters['pwa-node'] = {
+	type = 'server',
+	host = 'localhost',
+	port = '${port}',
+	executable = {
+		command = 'node',
+		args = {
+			vim.fn.stdpath('data') .. '/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js',
+			'${port}',
+		},
+	},
+}
+
 dapui.setup()
 
 dap.listeners.before.attach.dapui_config = function() dapui.open() end
