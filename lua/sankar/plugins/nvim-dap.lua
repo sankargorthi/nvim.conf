@@ -1,16 +1,22 @@
 local D = {
 	{
-		'jbyuki/one-small-step-for-vimkind',
+		'mfussenegger/nvim-dap',
 		dependencies = {
-			'mfussenegger/nvim-dap'
+			'rcarriga/nvim-dap-ui',
+			'nvim-neotest/nvim-nio',
+			'theHamsta/nvim-dap-virtual-text',
+			{
+				'jay-babu/mason-nvim-dap.nvim',
+				dependencies = { 'williamboman/mason.nvim' },
+			},
 		},
 		config = function()
 			require 'sankar.configs.nvim-dap'
-		end
+		end,
 	},
-
 	{
-		'mfussenegger/nvim-dap',
+		'jbyuki/one-small-step-for-vimkind',
+		dependencies = { 'mfussenegger/nvim-dap' },
 	},
 }
 return D
