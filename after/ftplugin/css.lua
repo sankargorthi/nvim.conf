@@ -1,3 +1,0 @@
--- vim.bo.shiftwidth = 2
--- vim.bo.expandtab = false
--- vim.bo.tabstop = 2
