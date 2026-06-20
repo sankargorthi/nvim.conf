@@ -17,6 +17,11 @@ local N = {
 			local cmp = require('cmp')
 
 			cmp.setup({
+				performance = {
+					debounce = 150,
+					throttle = 60,
+					fetching_timeout = 200,
+				},
 				window = {
 					completion = cmp.config.window.bordered(),
 					documentation = cmp.config.window.bordered()
