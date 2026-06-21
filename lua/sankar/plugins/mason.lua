@@ -63,14 +63,7 @@ local M = {
 				jsonls = {},
 				marksman = {},
 				tailwindcss = {},
-				ts_ls = {
-					root_dir = util.root_pattern('.git')(fname),
-					init_options = {
-						preferences = {
-							disableSuggestions = true
-						}
-					},
-				},
+				ts_ls = {},
 				html = { filetypes = { 'html', 'twig', 'hbs' } },
 				cssls = {},
 				dockerls = {},
@@ -124,6 +117,16 @@ local M = {
 						filetypes = (servers[server_name] or {}).filetypes,
 					}
 				end,
+				['ts_ls'] = function()
+					require('lspconfig').ts_ls.setup {
+						capabilities = lsp.capabilities(),
+						on_attach = lsp.on_attach,
+						root_dir = util.root_pattern('.git'),
+						init_options = {
+							preferences = { disableSuggestions = true },
+						},
+					}
+				end,
 			}
 
 			-- [[ Configure nvim-cmp ]]
@@ -149,6 +152,11 @@ local M = {
 			}
 
 			cmp.setup {
+				performance = {
+					debounce = 150,
+					throttle = 60,
+					fetching_timeout = 200,
+				},
 				snippet = {
 					expand = function(args)
 						luasnip.lsp_expand(args.body)
