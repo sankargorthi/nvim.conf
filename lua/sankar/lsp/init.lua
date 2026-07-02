@@ -36,6 +36,15 @@ function M.on_attach(client, bufnr)
 		vim.lsp.buf.format()
 	end, { desc = 'Format current buffer with LSP' })
 
+	-- Inlay hints: rust-analyzer, ts_ls, and others emit parameter names /
+	-- inferred types / elided lifetimes as ghost text. Big win for Rust.
+	if client.server_capabilities.inlayHintProvider then
+		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+		vim.keymap.set('n', '<leader>ih', function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+		end, { buffer = bufnr, desc = 'LSP: Toggle [i]nlay [h]ints' })
+	end
+
 	if client.server_capabilities.documentHighlightProvider then
 		vim.api.nvim_create_augroup('lsp_document_highlight', { clear = false })
 		vim.api.nvim_clear_autocmds { buffer = bufnr, group = 'lsp_document_highlight' }

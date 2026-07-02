@@ -56,6 +56,24 @@ return {
 				server = {
 					on_attach = lsp.on_attach,
 					capabilities = lsp.capabilities(),
+					default_settings = {
+						['rust-analyzer'] = {
+							-- Run clippy on save instead of `cargo check`.
+							-- More lints, roughly the same latency.
+							check = { command = 'clippy' },
+							-- Group auto-imports by module rather than each
+							-- symbol on its own `use` line.
+							imports = { granularity = { group = 'module' } },
+							procMacro = { enable = true },
+							-- Show elided lifetimes and parameter names as
+							-- inlay hints; on_attach also enables them.
+							inlayHints = {
+								bindingModeHints = { enable = true },
+								closureReturnTypeHints = { enable = 'always' },
+								lifetimeElisionHints = { enable = 'skip_trivial' },
+							},
+						},
+					},
 				},
 			}
 
