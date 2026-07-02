@@ -10,7 +10,13 @@ local M = {
 	opts = {
 		conceal = {
 			enabled = true
-		}
+		},
+		-- We register the tailwindcss LSP via vim.lsp.config in mason.lua;
+		-- setting override=false stops this plugin from doing its own
+		-- require('lspconfig').tailwindcss.setup(...) (the deprecation call).
+		server = {
+			override = false,
+		},
 	},
 	config = function(_, opts)
 		require("tailwind-tools").setup(opts)

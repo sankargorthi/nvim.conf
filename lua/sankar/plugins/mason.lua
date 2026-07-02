@@ -7,89 +7,73 @@ local M = {
 		'williamboman/mason.nvim',
 		version = '^1.0.0',
 		config = function()
-			require 'mason'.setup({
-				ensure_installed = {
-					'biome',
-					-- 'prettierd',
-					-- 'eslint_d',
-					-- 'elsint-lsp',
-					'lua-language-server',
-					'tailwindcss',
-					'tsserver',
-					-- 'typescript-language-server',
-					'lua_ls'
-				}
-			})
-		end
+			require('mason').setup()
+		end,
 	},
 	{
 		'williamboman/mason-lspconfig.nvim',
 		version = '^1.0.0',
 		dependencies = {
 			'williamboman/mason.nvim',
-			'neovim/nvim-lspconfig'
-		}
+			'neovim/nvim-lspconfig',
+		},
 	},
 	{
 		-- LSP Configuration & Plugins
 		'neovim/nvim-lspconfig',
 		dependencies = {
-			-- Automatically install LSPs to stdpath for neovim
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
-
-			-- Useful status updates for LSP
 			{ 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-
-			-- Additional lua configuration, makes nvim stuff amazing!
 			'folke/neodev.nvim',
 		},
 		config = function()
-			-- mason-lspconfig requires that these setup functions are called in this order
-			-- before setting up the servers.
-			require('mason-lspconfig').setup()
+			local lsp = require 'sankar.lsp'
 
-			local util = require 'lspconfig.util'
+			-- Per-server overrides. Empty table = accept lspconfig defaults.
 			local servers = {
 				bashls = {},
 				-- clangd = {},
 				-- gopls = {},
 				pyright = {
-					python = {
-						pythonPath = "/Users/SankarGorthi/.pyenv/versions/3.13.5/envs/contact_manager/bin/python",
-					}
+					settings = {
+						python = {
+							pythonPath = '/Users/SankarGorthi/.pyenv/versions/3.13.5/envs/contact_manager/bin/python',
+						},
+					},
 				},
-				["biome@2.0.6"] = {},
+				biome = {},
 				jsonls = {},
 				marksman = {},
 				tailwindcss = {},
-				ts_ls = {},
+				ts_ls = {
+					root_markers = { '.git' },
+					init_options = {
+						preferences = { disableSuggestions = true },
+					},
+				},
 				html = { filetypes = { 'html', 'twig', 'hbs' } },
 				cssls = {},
 				dockerls = {},
 				-- eslint = {},
 
-				-- gopls = {},
-
 				-- xml
 				lemminx = {
-					xml = {
-						validation = {
-							noGrammar = 'ignore',
-						}
-					}
+					settings = {
+						xml = {
+							validation = { noGrammar = 'ignore' },
+						},
+					},
 				},
 
 				lua_ls = {
-					Lua = {
-						workspace = { checkThirdParty = false },
-						telemetry = { enable = false },
-						diagnostics = {
-							globals = { 'vim', 'fname' }
-						},
-						runtime = {
-							-- Specify Lua version used by Neovim (5.1)
-							version = 'LuaJIT',
+					settings = {
+						Lua = {
+							workspace = { checkThirdParty = false },
+							telemetry = { enable = false },
+							diagnostics = { globals = { 'vim', 'fname' } },
+							-- LuaJIT is Neovim's Lua runtime
+							runtime = { version = 'LuaJIT' },
 						},
 					},
 				},
@@ -97,37 +81,32 @@ local M = {
 				vimls = {},
 			}
 
-			local lsp = require 'sankar.lsp'
+			-- Global defaults merged into every server config
+			vim.lsp.config('*', {
+				capabilities = lsp.capabilities(),
+			})
 
-			-- Ensure the servers above are installed
-			local mason_lspconfig = require 'mason-lspconfig'
+			for server, opts in pairs(servers) do
+				vim.lsp.config(server, opts)
+			end
 
-			mason_lspconfig.setup {
+			-- mason-lspconfig v1 only handles install/registry; we drive enable ourselves.
+			require('mason-lspconfig').setup {
 				automatic_installation = true,
 				ensure_installed = vim.tbl_keys(servers),
 			}
 
-			mason_lspconfig.setup_handlers {
-				function(server_name)
-					require('lspconfig')[server_name].setup {
-						capabilities = lsp.capabilities(),
-						on_attach = lsp.on_attach,
-						settings = servers[server_name],
-						init_options = (servers[server_name] or {}).init_options,
-						filetypes = (servers[server_name] or {}).filetypes,
-					}
+			vim.lsp.enable(vim.tbl_keys(servers))
+
+			-- on_attach: LspAttach fires once per (client, buffer) pair
+			vim.api.nvim_create_autocmd('LspAttach', {
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if client then
+						lsp.on_attach(client, args.buf)
+					end
 				end,
-				['ts_ls'] = function()
-					require('lspconfig').ts_ls.setup {
-						capabilities = lsp.capabilities(),
-						on_attach = lsp.on_attach,
-						root_dir = util.root_pattern('.git'),
-						init_options = {
-							preferences = { disableSuggestions = true },
-						},
-					}
-				end,
-			}
+			})
 
 			-- [[ Configure nvim-cmp ]]
 			-- See `:help cmp`
@@ -197,10 +176,10 @@ local M = {
 				},
 			}
 
-			cmp.setup.filetype({ "sql" }, {
+			cmp.setup.filetype({ 'sql' }, {
 				sources = {
-					{ name = "vim-dadbod-completion" },
-					{ name = "buffer" },
+					{ name = 'vim-dadbod-completion' },
+					{ name = 'buffer' },
 				}
 			})
 		end
