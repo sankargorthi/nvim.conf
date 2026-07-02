@@ -2,7 +2,6 @@ local T = {
 	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.8',
-		-- or                              , branch = '0.1.x',
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'nvim-telescope/telescope-dap.nvim',
@@ -10,7 +9,21 @@ local T = {
 		config = function()
 			local telescope = require 'telescope'
 			local builtin = require 'telescope.builtin'
+			local actions = require 'telescope.actions'
+			local action_state = require 'telescope.actions.state'
 			local extensions = telescope.extensions
+
+			-- Shell the highlighted entry to macOS `open`: images go to
+			-- Preview.app, PDFs to a PDF viewer, etc. Reliable for large
+			-- assets that Kitty graphics + tmux would fragment.
+			local function open_external(prompt_bufnr)
+				local entry = action_state.get_selected_entry()
+				if not entry then return end
+				local path = entry.path or entry.filename or entry.value
+				if path then
+					vim.fn.system({ 'open', path })
+				end
+			end
 
 			telescope.setup({
 				defaults = {
@@ -30,7 +43,11 @@ local T = {
 						-- shorten = true,
 						smart = true,
 					},
-				}
+					mappings = {
+						i = { ['<C-o>'] = open_external },
+						n = { ['<C-o>'] = open_external },
+					},
+				},
 			})
 
 			-- Extensions
@@ -44,7 +61,7 @@ local T = {
 				{ noremap = true, silent = true, desc = '[?] Search in git files' })
 			vim.keymap.set('n', '<leader>po', builtin.find_files, { desc = '[?] Search workspace files' })
 			vim.keymap.set('n', '<leader>pf', ':Telescope file_browser<CR>', { desc = '[?] Search workspace tree' })
-			vim.keymap.set('n', '<leader>gb', ':Telescope git_branches<CR>', { desc = '[] Browse [G]it [B]ranches' })
+			vim.keymap.set('n', '<leader>gb', ':Telescope git_branches<CR>', { desc = '[] Browse [G]it [B]ranches' })
 			vim.keymap.set('n', '<leader>e', function()
 				builtin.oldfiles({ only_cwd = true })
 			end, { desc = '[?] Find recently opened files' })
@@ -55,6 +72,13 @@ local T = {
 			vim.keymap.set('n', '<leader>ff', builtin.live_grep, { desc = '[?] Search across all files' })
 			vim.keymap.set('n', '<leader>hh', builtin.help_tags, { desc = '[?] Search across help files' })
 			vim.keymap.set('n', '<leader>mm', builtin.man_pages, { desc = '[?] Search across man pages' })
+
+			-- Open current buffer's file in the default macOS app.
+			vim.keymap.set('n', '<leader>o', function()
+				local path = vim.fn.expand('%:p')
+				if path == '' then return end
+				vim.fn.system({ 'open', path })
+			end, { desc = 'Open current file in default app' })
 		end
 	},
 	{
