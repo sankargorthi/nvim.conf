@@ -22,6 +22,24 @@ local T = {
 		end
 	},
 	-- {
+	-- 	"catppuccin/nvim",
+	-- 	name = "catppuccin",
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		---@diagnostic disable-next-line: missing-fields
+	-- 		require('catppuccin').setup({
+	-- 			-- variant = 'dawn',
+	-- 			flavour = 'frappe',
+	-- 			disable_background = false,
+	-- 			styles = {
+	-- 				italic = false
+	-- 			}
+	-- 		})
+	--
+	-- 		vim.cmd.colorscheme('catppuccin')
+	-- 	end
+	-- },
+	-- {
 	-- 	'oxfist/night-owl.nvim',
 	-- 	name = 'nightowl',
 	-- 	lazy = 'VeryLazy',
