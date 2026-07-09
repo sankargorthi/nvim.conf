@@ -7,18 +7,44 @@ local T = {
 		config = function()
 			---@diagnostic disable-next-line: missing-fields
 			require('rose-pine').setup({
-				-- variant = 'dawn',
 				disable_background = false,
 				styles = {
 					italic = false
 				}
 			})
 
-			vim.cmd.colorscheme('rose-pine-dawn')
-
 			-- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 			-- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 			-- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+		end
+	},
+	{
+		'f-person/auto-dark-mode.nvim',
+		lazy = false,
+		priority = 999, -- after rose-pine so the colorscheme is registered
+		dependencies = { 'rose-pine/neovim', 'nvim-lualine/lualine.nvim' },
+		config = function()
+			local function set_lualine_theme(theme)
+				local ok, lualine = pcall(require, 'lualine')
+				if not ok then return end
+				local config = lualine.get_config()
+				config.options.theme = theme
+				lualine.setup(config)
+			end
+
+			require('auto-dark-mode').setup({
+				update_interval = 3000,
+				set_dark_mode = function()
+					vim.api.nvim_set_option_value('background', 'dark', {})
+					vim.cmd.colorscheme('rose-pine-moon')
+					set_lualine_theme('dracula')
+				end,
+				set_light_mode = function()
+					vim.api.nvim_set_option_value('background', 'light', {})
+					vim.cmd.colorscheme('rose-pine-dawn')
+					set_lualine_theme('solarized_light')
+				end,
+			})
 		end
 	},
 	-- {
