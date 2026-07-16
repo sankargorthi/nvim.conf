@@ -48,13 +48,30 @@ return {
 				end,
 			}
 
+			-- Rust-only buffer-local keymap overrides. Layered here (not in a
+			-- FileType autocmd) so they run AFTER the shared `lsp.on_attach`
+			-- has set its own generic mappings (K → vim.lsp.buf.hover, etc.)
+			-- and can't be clobbered.
+			local rust_on_attach = function(client, bufnr)
+				lsp.on_attach(client, bufnr)
+				local map = function(lhs, subcmd, desc)
+					vim.keymap.set('n', lhs, function() vim.cmd.RustLsp(subcmd) end,
+						{ buffer = bufnr, desc = '🦀 ' .. desc })
+				end
+				-- Hover actions: adds go-to-impl / view docs to the plain hover.
+				map('K', { 'hover', 'actions' }, 'hover actions')
+				-- <C-w>d default is `vim.diagnostic.open_float` (one-line message);
+				-- swap in the full cargo-formatted block with source + `help:` hint.
+				map('<C-w>d', 'renderDiagnostic', 'render diagnostic')
+			end
+
 			vim.g.rustaceanvim = {
 				tools = {
 					executor = float_executor,
 					test_executor = float_executor,
 				},
 				server = {
-					on_attach = lsp.on_attach,
+					on_attach = rust_on_attach,
 					capabilities = lsp.capabilities(),
 					default_settings = {
 						['rust-analyzer'] = {
@@ -77,12 +94,19 @@ return {
 				},
 			}
 
-			vim.keymap.set('n', '<leader>rr', function()
-				vim.cmd.RustLsp('run')
-			end, { desc = '🦀 [r]un at cursor', noremap = true })
-			vim.keymap.set('n', '<leader>rR', function()
-				vim.cmd.RustLsp('runnables')
-			end, { desc = '🦀 [R]unnables picker', noremap = true })
+			-- Global <leader>r… bindings. RustLsp is only meaningful when
+			-- rust-analyzer is attached; invoking from a non-Rust buffer errors.
+			local gmap = function(lhs, subcmd, desc)
+				vim.keymap.set('n', lhs, function() vim.cmd.RustLsp(subcmd) end,
+					{ desc = '🦀 ' .. desc, noremap = true })
+			end
+			gmap('<leader>rr', 'run',            '[r]un at cursor')
+			gmap('<leader>rR', 'runnables',      '[R]unnables picker')
+			-- rustc --explain E0308: conceptual walkthrough of the error code.
+			gmap('<leader>re', 'explainError',   '[e]xplain error code')
+			-- What the code lowers to. Occasional, but memorable.
+			gmap('<leader>rm', { 'view', 'mir' }, 'view [m]ir')
+			gmap('<leader>rH', { 'view', 'hir' }, 'view [H]ir')
 		end,
 	},
 }
