@@ -47,10 +47,44 @@ dap.adapters.nlua = function(callback, config)
 	callback({ type = 'server', host = config.host or '127.0.0.1', port = config.port or 8086 })
 end
 
+-- Rust: attach codelldb to a running aspen `xroot`. The pgrep filter matches the
+-- dev-profile binary path so we don't pick up unrelated `root` processes.
+local function pick_xroot_pid()
+	local pgrep = vim.fn.systemlist({ 'pgrep', '-f', 'target/debug/root' })
+	if vim.v.shell_error ~= 0 or #pgrep == 0 then
+		vim.notify('nvim-dap: no target/debug/root process found. Is xroot running?', vim.log.levels.WARN)
+		return nil
+	end
+	if #pgrep == 1 then
+		return tonumber(pgrep[1])
+	end
+	local prompt = { 'Select xroot pid:' }
+	for i, pid in ipairs(pgrep) do
+		table.insert(prompt, string.format('%d. %s', i, pid))
+	end
+	local choice = vim.fn.inputlist(prompt)
+	if choice < 1 or choice > #pgrep then
+		return nil
+	end
+	return tonumber(pgrep[choice])
+end
+
+dap.configurations.rust = {
+	{
+		name = 'Attach to running xroot',
+		type = 'codelldb',
+		request = 'attach',
+		pid = pick_xroot_pid,
+		args = {},
+	},
+}
+
 vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = ' Toggle [b]reakpoint', noremap = true })
 vim.keymap.set('n', '<leader>dc', dap.continue, { desc = ' [C]ontinue', noremap = true })
 vim.keymap.set('n', '<leader>do', dap.step_over, { desc = ' Step [O]ver', noremap = true })
 vim.keymap.set('n', '<leader>di', dap.step_into, { desc = ' Step [I]nto', noremap = true })
+vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = 'Terminate debug session', noremap = true })
+vim.keymap.set('n', '<leader>dD', dap.disconnect, { desc = 'Disconnect debug adapter', noremap = true })
 vim.keymap.set('n', '<leader>du', dap.step_out, { desc = ' Step O[u]t', noremap = true })
 
 vim.keymap.set('n', '<leader>dU', dapui.toggle, { desc = ' Toggle dap [U]I', noremap = true })
