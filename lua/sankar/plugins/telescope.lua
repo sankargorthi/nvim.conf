@@ -66,7 +66,12 @@ local T = {
 				builtin.oldfiles({ only_cwd = true })
 			end, { desc = '[?] Find recently opened files' })
 			vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-			vim.keymap.set('n', '<leader>gw', extensions.git_worktree.git_worktrees, { desc = 'Browse [g]it [w]orktrees' })
+			vim.keymap.set('n', '<leader>gw', function()
+				extensions.git_worktree.git_worktrees({
+					previewer = false,
+					layout_config = { width = 0.5, height = 0.3 },
+				})
+			end, { desc = 'Browse [g]it [w]orktrees' })
 			vim.keymap.set('n', '<leader>cw', extensions.git_worktree.create_git_worktree,
 				{ desc = 'Prompt to [c]reate git [w]orktree' })
 			vim.keymap.set('n', '<leader>ff', builtin.live_grep, { desc = '[?] Search across all files' })
