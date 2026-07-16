@@ -88,8 +88,10 @@ vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = ' Toggle [b
 vim.keymap.set('n', '<leader>dc', dap.continue, { desc = ' [C]ontinue', noremap = true })
 vim.keymap.set('n', '<leader>do', dap.step_over, { desc = ' Step [O]ver', noremap = true })
 vim.keymap.set('n', '<leader>di', dap.step_into, { desc = ' Step [I]nto', noremap = true })
-vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = 'Terminate debug session', noremap = true })
-vim.keymap.set('n', '<leader>dD', dap.disconnect, { desc = 'Disconnect debug adapter', noremap = true })
+-- Attach-only workflow: disconnect detaches codelldb without killing the
+-- debuggee (xroot). `dap.terminate` would SIGKILL xroot instead — reach for
+-- it manually via `:lua require'dap'.terminate()` if that's ever wanted.
+vim.keymap.set('n', '<leader>dt', dap.disconnect, { desc = 'Detach debugger (leave xroot running)', noremap = true })
 vim.keymap.set('n', '<leader>du', dap.step_out, { desc = ' Step O[u]t', noremap = true })
 
 vim.keymap.set('n', '<leader>dU', dapui.toggle, { desc = ' Toggle dap [U]I', noremap = true })
