@@ -59,10 +59,10 @@ return {
 						{ buffer = bufnr, desc = '🦀 ' .. desc })
 				end
 				-- Hover actions: adds go-to-impl / view docs to the plain hover.
-				map('K', { 'hover', 'actions' }, 'hover actions')
+				map('K', { 'hover', 'actions' }, 'hover + go-to-impl/docs')
 				-- <C-w>d default is `vim.diagnostic.open_float` (one-line message);
 				-- swap in the full cargo-formatted block with source + `help:` hint.
-				map('<C-w>d', 'renderDiagnostic', 'render diagnostic')
+				map('<C-w>d', 'renderDiagnostic', 'full compiler diagnostic (source + help)')
 			end
 
 			vim.g.rustaceanvim = {
@@ -100,13 +100,13 @@ return {
 				vim.keymap.set('n', lhs, function() vim.cmd.RustLsp(subcmd) end,
 					{ desc = '🦀 ' .. desc, noremap = true })
 			end
-			gmap('<leader>rr', 'run',            '[r]un at cursor')
-			gmap('<leader>rR', 'runnables',      '[R]unnables picker')
+			gmap('<leader>rr', 'run',            '[r]un test/binary at cursor')
+			gmap('<leader>rR', 'runnables',      'pick a test/binary to [R]un')
 			-- rustc --explain E0308: conceptual walkthrough of the error code.
-			gmap('<leader>re', 'explainError',   '[e]xplain error code')
+			gmap('<leader>re', 'explainError',   '[e]xplain this error code')
 			-- What the code lowers to. Occasional, but memorable.
-			gmap('<leader>rm', { 'view', 'mir' }, 'view [m]ir')
-			gmap('<leader>rH', { 'view', 'hir' }, 'view [H]ir')
+			gmap('<leader>rm', { 'view', 'mir' }, '[m]id-level IR (borrow-checked flow)')
+			gmap('<leader>rH', { 'view', 'hir' }, '[H]igh-level IR (desugared source)')
 		end,
 	},
 }
