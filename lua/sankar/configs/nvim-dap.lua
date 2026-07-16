@@ -84,6 +84,34 @@ dap.configurations.rust = {
 	},
 }
 
+-- Session-scoped Ctrl-chord cluster: single-key stepping bound while a DAP
+-- session is live, torn down on end so <C-j>/<C-k>/<C-l>/<C-h>/<C-g>/<C-n>/
+-- <C-p> retain their normal-mode meanings (line-up/down, backspace, redraw,
+-- file-info, prev/next line) outside of a debug session.
+local session_maps = {
+	{ 'n', '<C-j>', dap.step_over,     'DAP: step over' },
+	{ 'n', '<C-k>', dap.step_out,      'DAP: step out (return to caller)' },
+	{ 'n', '<C-l>', dap.step_into,     'DAP: step into (descend into call)' },
+	{ 'n', '<C-h>', dap.restart_frame, 'DAP: restart current frame' },
+	{ 'n', '<C-g>', dap.run_to_cursor, 'DAP: run to cursor (temp bp + continue)' },
+	{ 'n', '<C-p>', dap.up,            'DAP: previous frame (caller)' },
+	{ 'n', '<C-n>', dap.down,          'DAP: next frame (callee)' },
+}
+
+dap.listeners.after.event_initialized.session_maps = function()
+	for _, m in ipairs(session_maps) do
+		vim.keymap.set(m[1], m[2], m[3], { desc = m[4] })
+	end
+end
+
+local function remove_session_maps()
+	for _, m in ipairs(session_maps) do
+		pcall(vim.keymap.del, m[1], m[2])
+	end
+end
+dap.listeners.before.event_terminated.session_maps = remove_session_maps
+dap.listeners.before.event_exited.session_maps = remove_session_maps
+
 vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = ' Toggle [b]reakpoint', noremap = true })
 vim.keymap.set('n', '<leader>dc', dap.continue, { desc = ' [C]ontinue', noremap = true })
 vim.keymap.set('n', '<leader>do', dap.step_over, { desc = ' Step [O]ver', noremap = true })
@@ -92,6 +120,23 @@ vim.keymap.set('n', '<leader>di', dap.step_into, { desc = ' Step [I]nto', nor
 -- debuggee (xroot). `dap.terminate` would SIGKILL xroot instead — reach for
 -- it manually via `:lua require'dap'.terminate()` if that's ever wanted.
 vim.keymap.set('n', '<leader>dt', dap.disconnect, { desc = 'Detach debugger (leave xroot running)', noremap = true })
+vim.keymap.set('n', '<leader>dB', function()
+	vim.ui.input({ prompt = 'Breakpoint condition: ' }, function(cond)
+		if cond and cond ~= '' then dap.set_breakpoint(cond) end
+	end)
+end, { desc = 'Set conditional [B]reakpoint', noremap = true })
+vim.keymap.set('n', '<leader>dL', function()
+	vim.ui.input({ prompt = 'Log message: ' }, function(msg)
+		if msg and msg ~= '' then dap.set_breakpoint(nil, nil, msg) end
+	end)
+end, { desc = 'Set [L]ogpoint (print, no stop)', noremap = true })
+vim.keymap.set('n', '<leader>dW', function()
+	require('dapui').elements.watches.add(vim.fn.expand('<cword>'))
+end, { desc = 'Add [W]ord under cursor to watches', noremap = true })
+vim.keymap.set('v', '<leader>dW', function()
+	vim.cmd('normal! "zy')
+	require('dapui').elements.watches.add(vim.fn.getreg('z'))
+end, { desc = 'Add selection to [W]atches', noremap = true })
 vim.keymap.set('n', '<leader>du', dap.step_out, { desc = ' Step O[u]t', noremap = true })
 
 vim.keymap.set('n', '<leader>dU', dapui.toggle, { desc = ' Toggle dap [U]I', noremap = true })
