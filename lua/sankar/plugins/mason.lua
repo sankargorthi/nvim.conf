@@ -136,6 +136,26 @@ local M = {
 					throttle = 60,
 					fetching_timeout = 200,
 				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered({
+						max_width = 80,
+						max_height = 20,
+					}),
+				},
+				formatting = {
+					format = require('lspkind').cmp_format({
+						mode = 'symbol_text',
+						maxwidth = 40,
+						ellipsis_char = '…',
+						menu = {
+							nvim_lsp = '[LSP]',
+							luasnip = '[Snip]',
+							crates = '[Crates]',
+							buffer = '[Buf]',
+						},
+					}),
+				},
 				snippet = {
 					expand = function(args)
 						luasnip.lsp_expand(args.body)
