@@ -76,6 +76,11 @@ dap.configurations.rust = {
 		request = 'attach',
 		pid = pick_xroot_pid,
 		args = {},
+		-- Force codelldb to load the Rust language plugin. Auto-detect from
+		-- DWARF sometimes misses (esp. on attach to an already-running
+		-- process), which prints "no plugin for language 'rust'. Inspection
+		-- of frame variables will be limited" on every frame change.
+		sourceLanguages = { 'rust' },
 	},
 }
 
