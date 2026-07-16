@@ -110,6 +110,31 @@ local T = {
 					-- },
 				},
 			}
+
+			-- Merge user-authored after/queries/<lang>/injections.scm into the
+			-- compiled treesitter query. nvim-treesitter pins each language's
+			-- query via `vim.treesitter.query.set` during startup, which
+			-- shadows nvim's runtime-merge of `after/queries/`. We re-read
+			-- every discovered file for the languages we care about and set
+			-- the merged text ourselves so custom injections actually take
+			-- effect. Add languages here as needed.
+			local function merge_injections(lang)
+				local paths = vim.api.nvim_get_runtime_file(
+					'queries/' .. lang .. '/injections.scm', true)
+				if #paths < 2 then return end
+				local parts = {}
+				for _, path in ipairs(paths) do
+					local f = io.open(path, 'r')
+					if f then
+						table.insert(parts, f:read('*a'))
+						f:close()
+					end
+				end
+				vim.treesitter.query.set(lang, 'injections',
+					table.concat(parts, '\n'))
+			end
+
+			merge_injections('rust')
 		end
 	},
 }
