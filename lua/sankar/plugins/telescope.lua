@@ -36,6 +36,15 @@ local T = {
 						height = 0.6,
 						width = 0.65,
 					},
+					-- Each pane draws its own rounded box. Telescope's vertical
+					-- layout reserves a border row per pane, so we can't cleanly
+					-- merge them into a single outer box without a custom layout
+					-- strategy — accept three separate rounded rectangles.
+					borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+					prompt_title = false,
+					results_title = false,
+					preview_title = false,
+					winblend = 0,
 					path_display = {
 						-- There's a known issue with truncate and git worktree. Don't use this until that is fixed
 						-- truncate = DO_NOT_USE
