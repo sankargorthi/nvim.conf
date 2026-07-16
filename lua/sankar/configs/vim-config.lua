@@ -23,6 +23,12 @@ vim.opt.colorcolumn = '100'
 vim.opt.signcolumn = 'yes'
 vim.opt.winborder = 'rounded'
 
+-- Open splits to the right/below so new scratch buffers (MIR/HIR views,
+-- diagnostics, help) land on the far side of the source rather than
+-- displacing it leftward/upward. Reads L->R, top->bottom like text.
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- nice tabs
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
